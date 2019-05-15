@@ -138,9 +138,9 @@ namespace HoustonOnWire.Migrations
                 {
                     MessageId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Timestamp = table.Column<DateTime>(nullable: false),
                     Content = table.Column<string>(nullable: true),
                     FromVisitor = table.Column<bool>(nullable: false),
+                    Received = table.Column<DateTime>(type: "Date", nullable: false, defaultValueSql: "GetDate()"),
                     ChatId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
@@ -214,7 +214,7 @@ namespace HoustonOnWire.Migrations
 
             migrationBuilder.InsertData(
                 table: "Messages",
-                columns: new[] { "MessageId", "ChatId", "Content", "FromVisitor", "Timestamp" },
+                columns: new[] { "MessageId", "ChatId", "Content", "FromVisitor", "Received" },
                 values: new object[,]
                 {
                     { 1L, 1L, "Hello", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },

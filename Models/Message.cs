@@ -10,10 +10,10 @@ namespace HoustonOnWire.Models
     {
         public long MessageId { get; set; }
 
-        public DateTime Timestamp { get; set; }
+        
         public string Content { get; set; }
         public bool FromVisitor { get; set; }
-
+        public DateTime Received { get; set; }
 
         public long ChatId { get; set; }
         public Chat Chat { get; set; }

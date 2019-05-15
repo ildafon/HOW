@@ -66,13 +66,20 @@ namespace HoustonOnWire.Models
                 .WithOne(c => c.Chat)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            
+
 
             modelBuilder.Entity<Message>()
                 .HasOne<Chat>(m => m.Chat)
-                .WithMany( c => c.Messages)
+                .WithMany(c => c.Messages)
                 .HasForeignKey(m => m.ChatId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Message>()
+                .Property<DateTime>(m => m.Received)
+                .IsRequired()
+                .HasColumnType("Date")
+                .HasDefaultValueSql("GetDate()");
+                
 
 
 
@@ -205,6 +212,7 @@ namespace HoustonOnWire.Models
                     Content = "Hello",
                     FromVisitor = true,
                     ChatId = 1
+                    
                 },
                 new Message
                 {
@@ -232,6 +240,20 @@ namespace HoustonOnWire.Models
 
 
 
-        } 
+        }
+
+        public override int SaveChanges()
+        {
+            ChangeTracker.DetectChanges();
+
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
+                {
+                    entry.Property("Received").CurrentValue = DateTime.UtcNow;
+                }
+            }
+            return base.SaveChanges();
+        }
     }
 }

@@ -148,7 +148,10 @@ namespace HoustonOnWire.Migrations
 
                     b.Property<bool>("FromVisitor");
 
-                    b.Property<DateTime>("Timestamp");
+                    b.Property<DateTime>("Received")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("Date")
+                        .HasDefaultValueSql("GetDate()");
 
                     b.HasKey("MessageId");
 
@@ -157,10 +160,10 @@ namespace HoustonOnWire.Migrations
                     b.ToTable("Messages");
 
                     b.HasData(
-                        new { MessageId = 1L, ChatId = 1L, Content = "Hello", FromVisitor = true, Timestamp = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { MessageId = 2L, ChatId = 1L, Content = "Hello", FromVisitor = false, Timestamp = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { MessageId = 3L, ChatId = 2L, Content = "Hello", FromVisitor = true, Timestamp = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { MessageId = 4L, ChatId = 2L, Content = "Hello", FromVisitor = false, Timestamp = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                        new { MessageId = 1L, ChatId = 1L, Content = "Hello", FromVisitor = true, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                        new { MessageId = 2L, ChatId = 1L, Content = "Hello", FromVisitor = false, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                        new { MessageId = 3L, ChatId = 2L, Content = "Hello", FromVisitor = true, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                        new { MessageId = 4L, ChatId = 2L, Content = "Hello", FromVisitor = false, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                     );
                 });
 

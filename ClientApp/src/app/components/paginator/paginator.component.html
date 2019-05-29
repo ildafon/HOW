@@ -1,0 +1,13 @@
+<div class="mb-2">
+  <button *ngFor="let page of pageNumbers" class="btn btn-outline-primary"
+          (click)="onPageChange(page)"
+          [class.active]="page == pageNumber">
+    {{page}}
+  </button>
+
+  <div class="inline-block pull-right align-middle">
+    <input id="pageSize" type="number" class="w-10" [value]="pageSize" (change)="onPageSizeChange($event.target.value)" />
+    <label for="pageSize">Page Size</label>
+  </div>
+
+</div>

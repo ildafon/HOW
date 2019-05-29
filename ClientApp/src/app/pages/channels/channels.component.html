@@ -1,0 +1,41 @@
+<div *ngIf="!channels">Loading...</div>
+
+<div class="row">
+  <router-outlet></router-outlet>
+</div>
+
+
+<div class="row mt-2">
+  <input type="text" placeholder="Enter filter" [(ngModel)]="term"  (focus)="onFilterFocus()" class="m-2" />
+</div>
+
+<div *ngIf="channels">
+  <table class="table table-sm  table-hover">
+    <thead>
+      <tr><th>Id</th><th>Name</th><th>Customer</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let channel of channels"
+          (click)="onSelect(channel.channelId)"
+          [class.active]="channel.channelId==selectedId">
+        <td>{{channel.channelId}}</td>
+        <td>{{channel.name}}</td>
+        <td>{{channel | customersOfChannel}}</td>
+      </tr>
+    </tbody>
+
+  </table>
+
+
+</div>
+
+<div class="row">
+  <app-paginator [totalPages]="paging.totalPages"
+                 [pageNumber]="page"
+                 [pageSize]="paging.pageSize"
+                 (page)="onPage($event)"></app-paginator>
+</div>
+
+
+
+

@@ -25,7 +25,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\models\channelCustomers.ts" />
+    <None Remove="ClientApp\src\app\models\index.ts" />
+    <None Remove="ClientApp\src\app\models\repository.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\app\pages\" />
+    <Folder Include="ClientApp\src\app\services\" />
     <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\models\channelCustomers.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\index.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\repository.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

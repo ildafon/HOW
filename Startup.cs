@@ -8,7 +8,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 using HoustonOnWire.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SignalR;
+using HoustonOnWire.SignalRHubs;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 
+using HoustonOnWire.OtherLayers;
 
 namespace HoustonOnWire
 {
@@ -25,12 +31,32 @@ namespace HoustonOnWire
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddSignalR();
+
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddScoped<IUrlHelper>(factory =>
+            {
+                var actionContext = factory.GetService<IActionContextAccessor>().ActionContext;
+                return new UrlHelper(actionContext);
+            });
+
+            
+
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration["Data:Customers:ConnectionString"]));
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddScoped<IChannelService, ChannelService>();
 
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(opts => {
+                    opts.SerializerSettings.ReferenceLoopHandling
+                    = ReferenceLoopHandling.Serialize;
+                    opts.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    
+                 });
+                
            
             services.AddSpaStaticFiles(configuration =>
             {
@@ -57,6 +83,13 @@ namespace HoustonOnWire
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<SimpleHub>("/simplehub");
+            });
+
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -76,7 +109,7 @@ namespace HoustonOnWire
                 }
             });
 
-
+           
             //SeedData.SeedDatabase(context);
         }
     }

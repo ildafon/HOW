@@ -1,0 +1,35 @@
+<div *ngIf="!channels">Loading...</div>
+
+<div class="row mt-2">
+  <input type="text" placeholder="Enter filter" (input)="onFilter($event)" class="m-2"/>
+</div>
+
+<div *ngIf="channels">
+  <table class="table table-sm table-striped">
+    <thead>
+      <tr><th>Id</th><th>Name</th><th>Customer</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let channel of channels">
+        <td>{{channel.channelId}}</td>
+        <td>{{channel.name}}</td>
+        <td>{{channel | customersOfChannel}}</td>
+      </tr>
+    </tbody>
+
+  </table>
+  
+
+</div>
+
+<div class="row">
+  <app-paginator [totalPages]="paging.totalPages"
+                 [pageNumber]="paging.pageNumber"
+                 [pageSize]="paging.pageSize"
+                 (page)="onPage($event)"></app-paginator>
+</div>
+
+
+ 
+
+

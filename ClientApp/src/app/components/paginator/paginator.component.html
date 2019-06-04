@@ -1,8 +1,9 @@
 <div class="mb-2">
-  <button *ngFor="let page of pageNumbers" class="btn btn-outline-primary"
-          (click)="onPageChange(page)"
-          [class.active]="page == pageNumber">
-    {{page}}
+  <button *ngFor="let p of pageNumbers" class="btn btn-outline-primary"
+          (click)="onPageChange(p)"
+          [class.focus]="p == pageNumber"
+          [class.active]="p == pageNumber">
+    {{p}}
   </button>
 
   <div class="inline-block pull-right align-middle">

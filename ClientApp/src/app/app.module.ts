@@ -67,6 +67,9 @@ import { CustomersResolverService } from './services/customers-resolver.service'
           {
             path: 'channel-details/:id',
             component: ChannelDetailComponent,
+            resolve: {
+              channel: ChannelDetailResolver,
+            },
             data: {title: 'Channel Details'}
           },
           {

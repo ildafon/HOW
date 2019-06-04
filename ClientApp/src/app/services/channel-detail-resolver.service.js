@@ -14,7 +14,6 @@ var ChannelDetailResolver = /** @class */ (function () {
     }
     ChannelDetailResolver.prototype.resolve = function (route, state) {
         var id = route.paramMap.get("id");
-        console.log("id=", id);
         return this.cs.getChannel(+id);
     };
     ChannelDetailResolver = __decorate([

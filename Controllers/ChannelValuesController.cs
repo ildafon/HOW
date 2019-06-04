@@ -14,7 +14,7 @@ namespace HoustonOnWire.Controllers
     [Route("api/channels")]
     public class ChannelValuesController : Controller
     {
-        private DataContext context;
+        private readonly DataContext context;
         private readonly IChannelService channelService;
         private readonly IUrlHelper urlHelper;
 
@@ -26,10 +26,10 @@ namespace HoustonOnWire.Controllers
         }
 
         [HttpGet(Name = "GetChannels")]
-        public IActionResult Get(FilterParams filterParams)
+        public IActionResult GetChannelsPaged(FilterParams filterParams)
         {
             //System.Console.WriteLine($"In ChannelValueController in Get Action {filterParams.PageNumber}");
-            var model = channelService.GetChannels(filterParams);
+            var model = channelService.GetChannelsPaged(filterParams);
 
             Response.Headers.Add("X-Pagination", model.GetHeader().ToJson());
 

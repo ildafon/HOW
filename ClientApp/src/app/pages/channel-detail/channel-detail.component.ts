@@ -1,12 +1,20 @@
 import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { ChannelService } from '../../services/channel.service';
-import { Channel } from '../../models';
+import { Channel, PagedResponse, Customer } from '../../models';
 import { Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { slideInDownAnimation } from '../../animations';
+
+export interface IRouterData {
+  title: string,
+  channel?: Channel,
+  customers?: Customer[]
+}
+
+
 
 @Component({
   selector: 'app-channel-detail',
@@ -19,43 +27,29 @@ export class ChannelDetailComponent implements OnInit, OnDestroy {
   @HostBinding('style.display') display = 'block';
   @HostBinding('style.position') position = 'absolute';
 
-
+  title: string;
   channel: Channel;
   subscription: Subscription;
-  id: string;
-  page: string;
-  term: string;
-  pageSize: string;
+  
 
-  constructor(private channelService: ChannelService,
+  constructor(private cs: ChannelService,
               private router: Router,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-
-    
-
-    this.id = this.route.snapshot.paramMap.get("id");
-    this.page = this.route.snapshot.paramMap.get("page");
-    this.term = this.route.snapshot.paramMap.get("term");
-    this.pageSize = this.route.snapshot.paramMap.get("psize");
-
-    this.channelService.getChannel(+this.id)
-      .subscribe(result => this.channel = result);
+    this.subscription = this.route.data.subscribe((data: IRouterData) => {
+      this.title = data.title;
+      this.channel = data.channel;
+      this.cs.changeRequestObject({ visitedId: this.channel.channelId })
+    });
   }
 
   ngOnDestroy() {
-    //this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   backToChannels() {
-    this.router.navigate(['/how/channels',
-      {
-        id: this.id,
-        page: this.page,
-        term: this.term,
-        psize: this.pageSize
-      }]);
+    this.router.navigate(['/how/channels']);
   }
 
 }

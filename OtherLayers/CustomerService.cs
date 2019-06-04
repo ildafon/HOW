@@ -10,7 +10,7 @@ namespace HoustonOnWire.OtherLayers
 {
     public class CustomerService : ICustomerService
     {
-        private DataContext context;
+        private readonly DataContext context;
 
         public CustomerService(DataContext ctx)
         {
@@ -33,7 +33,7 @@ namespace HoustonOnWire.OtherLayers
                     .Include(customer => customer.Chats)
                     .Select(customer => RemoveCustomerCycles(customer));
             }
-            return new PagedList<Customer>(query, filterParams.PageNumber, filterParams.PageSize);
+            return new PagedList<Customer>(query, filterParams.PageNumber, filterParams.PageSize, filterParams.Term);
         }
 
        

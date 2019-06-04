@@ -10,14 +10,14 @@ namespace HoustonOnWire.OtherLayers
 {
     public class ChannelService : IChannelService
     {
-        private DataContext context;
+        private readonly DataContext context;
 
         public ChannelService(DataContext ctx)
         {
             this.context = ctx;
         }
 
-        public PagedList<Channel> GetChannels(FilterParams filterParams) {
+        public PagedList<Channel> GetChannelsPaged(FilterParams filterParams) {
             
             IQueryable<Channel> query = context.Channels;
 
@@ -33,7 +33,7 @@ namespace HoustonOnWire.OtherLayers
                 
             }
             
-            return new PagedList<Channel>(query, filterParams.PageNumber, filterParams.PageSize);
+            return new PagedList<Channel>(query, filterParams.PageNumber, filterParams.PageSize, filterParams.Term);
         }
 
         public Channel GetChannel(long id)

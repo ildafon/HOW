@@ -8,12 +8,13 @@ namespace HoustonOnWire.Lib
 {
     public class PagedList<T>
     {
-        public PagedList(IQueryable<T> source, int pageNumber, int pageSize)
+        public PagedList(IQueryable<T> source, int pageNumber, int pageSize, string term)
         {
-            System.Console.WriteLine($"pageNumber in constractor of  class PagedList = {pageNumber}");
+            
             this.TotalItems = source.Count();
             this.PageNumber = pageNumber;
             this.PageSize = pageSize;
+            this.Term = term;
             this.List = source
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
@@ -24,6 +25,8 @@ namespace HoustonOnWire.Lib
         public int PageNumber { get; }
         public int PageSize { get; }
         public List<T> List { get; }
+
+        public string Term { get; }
 
         public int TotalPages => (int)Math.Ceiling(this.TotalItems /(double)this.PageSize);
         public bool HasPreviousPage => this.PageNumber > 1;
@@ -37,7 +40,8 @@ namespace HoustonOnWire.Lib
                 this.TotalItems,
                 this.PageNumber,
                 this.PageSize,
-                this.TotalPages
+                this.TotalPages,
+                this.Term
             );
         }
     }

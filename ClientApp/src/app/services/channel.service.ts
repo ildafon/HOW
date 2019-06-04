@@ -1,17 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { ApiService } from './api.service';
 import { PagedResponse, Channel, RequestObject, Customer } from '../models';
 
 
 @Injectable()
 export class ChannelService {
-  private channels: Channel[];
-  private customers: Customer[];
+  
+  private requestObject$: BehaviorSubject<RequestObject> = new BehaviorSubject(new RequestObject);
+  get currentRequestObject() {
+    return this.requestObject$.getValue();
+  }
+  requestObject = this.requestObject$.asObservable();
+
+  
+  changeRequestObject(reqObj: Object) {
+    this.requestObject$.next((<any>Object).assign(this.requestObject$.value, reqObj));
+  }
+
+  //get term(): string {
+  //  return this.requestObject$.value.term;
+  //}
+
+  //set term(t: string) {
+  //  this.requestObject$.next(Object.assign(this.requestObject$.value, { term: t }));
+  //}
+
+  //get page(): number {
+  //  return this.requestObject$.value.pageNumber;
+  //}
+
 
   constructor(private api: ApiService) { }
 
-  getChannels(channelRequestObj: RequestObject): Observable<PagedResponse<Channel>> {
+  getChannelsPaged(channelRequestObj: RequestObject): Observable<PagedResponse<Channel>> {
     return this.api.sendRequest<PagedResponse<Channel>>("GET", '/api/channels'
       + '?Related=' + channelRequestObj.related
       + '&PageNumber=' + channelRequestObj.pageNumber

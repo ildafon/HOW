@@ -9,7 +9,7 @@ namespace HoustonOnWire.OtherLayers
 {
     public interface IChannelService
     {
-        PagedList<Channel> GetChannels(FilterParams filterParams);
+        PagedList<Channel> GetChannelsPaged(FilterParams filterParams);
 
         Channel GetChannel(long id);
     }

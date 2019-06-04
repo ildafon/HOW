@@ -21,56 +21,28 @@ export class ChannelsComponent implements OnInit {
   subscription: Subscription;
 
   channels: Channel[] = [];
-  selectedId: string;
+  selectedId: number;
   paging: Paging = {} as Paging;
-  links: LinkInfo[] = [];
-
-  filterParam$: BehaviorSubject<RequestObject> = new BehaviorSubject(new RequestObject);
-  get term():string  {
-    return this.filterParam$.value.term;
-  }
-
-  set term(t: string) {
-    this.filterParam$.next(Object.assign(this.filterParam$.value, { term: t }));
-  }
-
-  get page(): number {
-    return this.filterParam$.value.pageNumber;
-  }
+  visitedId: number;
 
   
 
-  constructor(private channelsService: ChannelService,
+  constructor(private cs: ChannelService,
               public router: Router,
-              public route: ActivatedRoute)
-  {
-    
-  }
-
+              public route: ActivatedRoute) {}
 
 
   ngOnInit() {
 
-    this.subscription = this.filterParam$
-      .switchMap(value => this.channelsService.getChannels(value))
+    this.subscription = this.cs.requestObject
+      .switchMap(value => this.cs.getChannelsPaged(value))
       .subscribe((pagedResponse: PagedResponse<Channel>) => {
         this.channels = pagedResponse.items;
         this.paging = pagedResponse.paging;
-        this.links = pagedResponse.links;
-        console.log("filterParam changed", pagedResponse);
+        this.visitedId = this.cs.currentRequestObject.visitedId;
+        
       });
-    this.route.paramMap
-      .subscribe(params => {
-        console.log("page=", params.get("page"));
-        if (params.get("id") && (params.get("page")!=null)) {
-          this.filterParam$.next(Object.assign(this.filterParam$.value, {
-            pageNumber: params.get("page"),
-            term: params.get("term"),
-            pageSize: params.get("psize")
-          }));
-          this.selectedId = params.get("id");
-        }
-      });
+
   }
 
   ngOnDestroy() {
@@ -81,31 +53,28 @@ export class ChannelsComponent implements OnInit {
 
   onPage(event: PaginationObject) {
 
-    this.filterParam$.next(Object.assign(this.filterParam$.value, {
+    this.cs.changeRequestObject({
       pageNumber: event.pageNumber,
       pageSize: event.pageSize
-    }));
+    });
+
   }
 
   onFilter(event) {
-    
-    this.filterParam$.next(Object.assign(this.filterParam$.value, {
+    this.cs.changeRequestObject({
       term: event.target.value
-    }));
+    });
   }
 
   onFilterFocus() {
-    this.filterParam$.next(Object.assign(this.filterParam$.value, {
-      pageNumber: 1  
-    }));
+    this.cs.changeRequestObject({
+      pageNumber: 1
+    });
   }
 
   showDetails(id) {
-    this.router.navigate(['how/channel-details', id, {
-      page: this.filterParam$.value.pageNumber,
-      term: this.filterParam$.value.term,
-      psize: this.filterParam$.value.pageSize
-    }]);
+    this.router.navigate(['how/channel-details', id
+    ]);
   }
 
   createChannel() {
@@ -113,12 +82,13 @@ export class ChannelsComponent implements OnInit {
   }
 
   editChannel(id) {
-    this.router.navigate(['how/channel-edit', id]);
+    this.router.navigate(['how/channel-edit', id
+    ]);
   }
 
   deleteChannel(id) {
-    this.channelsService.deleteChannel(id).subscribe(result =>
-        this.filterParam$.next(Object.assign(this.filterParam$.value, this.filterParam$.value))
+    this.cs.deleteChannel(id).subscribe(result =>
+      this.cs.changeRequestObject({})
     );
  
   }

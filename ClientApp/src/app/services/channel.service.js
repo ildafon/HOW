@@ -7,11 +7,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var rxjs_1 = require("rxjs");
+var models_1 = require("../models");
 var ChannelService = /** @class */ (function () {
+    //get term(): string {
+    //  return this.requestObject$.value.term;
+    //}
+    //set term(t: string) {
+    //  this.requestObject$.next(Object.assign(this.requestObject$.value, { term: t }));
+    //}
+    //get page(): number {
+    //  return this.requestObject$.value.pageNumber;
+    //}
     function ChannelService(api) {
         this.api = api;
+        this.requestObject$ = new rxjs_1.BehaviorSubject(new models_1.RequestObject);
+        this.requestObject = this.requestObject$.asObservable();
     }
-    ChannelService.prototype.getChannels = function (channelRequestObj) {
+    Object.defineProperty(ChannelService.prototype, "currentRequestObject", {
+        get: function () {
+            return this.requestObject$.getValue();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ChannelService.prototype.changeRequestObject = function (reqObj) {
+        this.requestObject$.next(Object.assign(this.requestObject$.value, reqObj));
+    };
+    ChannelService.prototype.getChannelsPaged = function (channelRequestObj) {
         return this.api.sendRequest("GET", '/api/channels'
             + '?Related=' + channelRequestObj.related
             + '&PageNumber=' + channelRequestObj.pageNumber

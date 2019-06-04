@@ -11,7 +11,7 @@ export class ChannelDetailResolver implements Resolve<Channel> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Channel> {
     let id = route.paramMap.get("id");
-    console.log("id=", id);
+    
     return this.cs.getChannel(+id);
   }
 }

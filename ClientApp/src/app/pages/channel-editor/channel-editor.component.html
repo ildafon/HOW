@@ -15,7 +15,7 @@
              [(ngModel)]="channel.name"
              name="name" id="name"
              #name="ngModel"
-             [class.danger]="name.invalid"/>
+             [class.danger]="name.invalid" />
 
       <ul class="text-danger list-unstyled" *ngIf="name.invalid &&  formSubmitted">
         <li *ngIf="name.errors?.required">
@@ -32,22 +32,25 @@
 
     <div class="form-group">
       <div *ngFor="let customer of customersAvailable; let i = index">
-        
-        <input type="checkbox" [(ngModel)]="customersSelector[i]" [ngModelOptions]="{standalone: true}"  id="i" />
+
+        <input type="checkbox" [(ngModel)]="customersSelector[i]" [ngModelOptions]="{standalone: true}" id="i" />
         <label for="i">{{customer.name}}</label>
       </div>
-      
+
     </div>
 
-    
-      <button *ngIf="isNew" type="submit" class="btn btn-success"
-              [disabled]="formSubmitted && channelForm.invalid"
-              [class.btn-secondary]="formSubmitted && channelForm.invalid">Add Channel</button>
-    
-    
-      <button *ngIf="!isNew" type="submit" class="btn btn-success">Save</button>
 
-   
+    <button *ngIf="isNew" type="submit" class="btn btn-success"
+            [disabled]="formSubmitted && channelForm.invalid"
+            [class.btn-secondary]="formSubmitted && channelForm.invalid">
+      Add Channel
+    </button>
+
+
+    <button *ngIf="!isNew" type="submit" class="btn btn-success">Save</button>
+
+    <button  (click)="backToChannels()" class="btn btn-secondary">Cancel</button>
+
 
   </form>
 </div>

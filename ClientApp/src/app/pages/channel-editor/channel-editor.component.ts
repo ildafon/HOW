@@ -42,6 +42,7 @@ export class ChannelEditorComponent implements OnInit {
           return data.channel.channelCustomers.map(cc => cc.customerId).includes(array[index].customerId);
         })
         this.isNew = false;
+        this.cs.changeRequestObject({ visitedId: this.channel.channelId });
       }
       
     });
@@ -78,7 +79,9 @@ export class ChannelEditorComponent implements OnInit {
       });
   }
 
-
-  get diagnostics() { return JSON.stringify(this.channel); }
+  backToChannels() {
+    this.router.navigate(['/how/channels']);
+  }
+  
 
 }

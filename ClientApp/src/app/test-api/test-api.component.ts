@@ -7,7 +7,7 @@ import { ChannelService } from '../services/channel.service';
 
 import { PaginationObject } from '../components/paginator/pagination-object';
 import { PaginatorComponent } from '../components/paginator/paginator.component';
-import { PagedResponse, Channel, LinkInfo, Paging, ChannelsRequestObject } from '../models';
+import { PagedResponse, Channel, LinkInfo, Paging, RequestObject } from '../models';
 
 @Component({
   templateUrl: './test-api.component.html'
@@ -19,7 +19,7 @@ export class TestApiComponent implements OnInit, OnDestroy {
   paging: Paging = {} as Paging;
   links: LinkInfo[] = [];
 
-  filterParam$: BehaviorSubject<ChannelsRequestObject> = new BehaviorSubject(new ChannelsRequestObject);
+  filterParam$: BehaviorSubject<RequestObject> = new BehaviorSubject(new RequestObject);
 
 
   constructor(private channelsService: ChannelService) {  }

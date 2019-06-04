@@ -1,6 +1,6 @@
 <div *ngIf="!channels">Loading...</div>
 
-<div class="row">
+<div  class="row">
   <router-outlet></router-outlet>
 </div>
 
@@ -10,17 +10,23 @@
 </div>
 
 <div *ngIf="channels">
-  <table class="table table-sm  table-hover">
+  <table class="table table-sm">
     <thead>
-      <tr><th>Id</th><th>Name</th><th>Customer</th></tr>
+      <tr><th>Id</th><th>Name</th><th>Customer</th><th></th></tr>
     </thead>
     <tbody>
       <tr *ngFor="let channel of channels"
-          (click)="onSelect(channel.channelId)"
+          
           [class.active]="channel.channelId==selectedId">
         <td>{{channel.channelId}}</td>
         <td>{{channel.name}}</td>
         <td>{{channel | customersOfChannel}}</td>
+        <td>
+          <span><button class="btn btn-primary" (click)="showDetails(channel.channelId)">Detail</button></span>
+          <span><button class="btn btn-primary" (click)="editChannel(channel.channelId)">Edit</button></span>
+          <span><button class="btn btn-danger" (click)="deleteChannel(channel.channelId)">Delete</button></span>
+
+        </td>
       </tr>
     </tbody>
 
@@ -36,6 +42,9 @@
                  (page)="onPage($event)"></app-paginator>
 </div>
 
+<div class="row text-center">
+  <button class="btn btn-primary" (click)="createChannel()">Create New Channel</button>
+</div>
 
 
 

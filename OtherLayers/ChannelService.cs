@@ -33,9 +33,20 @@ namespace HoustonOnWire.OtherLayers
                 
             }
             
-            
-
             return new PagedList<Channel>(query, filterParams.PageNumber, filterParams.PageSize);
+        }
+
+        public Channel GetChannel(long id)
+        {
+            Channel result = context.Channels
+                .Include(channel => channel.ChannelCustomers)
+                .ThenInclude(channelCustomer => channelCustomer.Customer)
+                .FirstOrDefault(channel => channel.ChannelId == id);
+
+            if (result != null)
+                result = RemoveChannelCycles(result);
+
+            return result;
         }
 
         private Channel RemoveChannelCycles(Channel ch) {

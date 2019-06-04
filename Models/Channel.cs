@@ -12,6 +12,7 @@ namespace HoustonOnWire.Models
         public long ChannelId { get; set; }
         public string Name { get; set; }
 
+        public DateTime Received { get; set; }
 
         public IEnumerable<ChannelCustomer> ChannelCustomers { get; set; }
     

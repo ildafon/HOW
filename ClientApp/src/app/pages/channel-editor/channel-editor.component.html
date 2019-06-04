@@ -1,0 +1,53 @@
+<h2>{{title}}</h2>
+{{ customersSelector | json }}
+{{channel | json}}
+<div class="row">
+  <form novalidate #channelForm="ngForm"
+        (ngSubmit)="onSubmit(channelForm)">
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text"
+             required
+             minlength="5"
+             pattern="^[A-Za-z0-9]+$"
+             class="form-control"
+             [(ngModel)]="channel.name"
+             name="name" id="name"
+             #name="ngModel"
+             [class.danger]="name.invalid"/>
+
+      <ul class="text-danger list-unstyled" *ngIf="name.invalid &&  formSubmitted">
+        <li *ngIf="name.errors?.required">
+          You must enter a name
+        </li>
+        <li *ngIf="name.errors?.minlength">
+          Name must be at least 5 characters long.
+        </li>
+        <li *ngIf="name.errors?.pattern">
+          Only characters A-Z, a-z allowed
+        </li>
+      </ul>
+    </div>
+
+    <div class="form-group">
+      <div *ngFor="let customer of customersAvailable; let i = index">
+        
+        <input type="checkbox" [(ngModel)]="customersSelector[i]" [ngModelOptions]="{standalone: true}"  id="i" />
+        <label for="i">{{customer.name}}</label>
+      </div>
+      
+    </div>
+
+    
+      <button *ngIf="isNew" type="submit" class="btn btn-success"
+              [disabled]="formSubmitted && channelForm.invalid"
+              [class.btn-secondary]="formSubmitted && channelForm.invalid">Add Channel</button>
+    
+    
+      <button *ngIf="!isNew" type="submit" class="btn btn-success">Save</button>
+
+   
+
+  </form>
+</div>

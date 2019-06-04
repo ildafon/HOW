@@ -150,6 +150,19 @@ namespace HoustonOnWire.Models
                     Name = "Operator2",
                     Email = "operator2@example.com",
                     AvatarId = 2
+                }, new Customer
+                {
+                    CustomerId = 3,
+                    Name = "Operator3",
+                    Email = "operator3@example.com",
+                    AvatarId = 5
+                },
+                new Customer
+                {
+                    CustomerId = 4,
+                    Name = "Operator4",
+                    Email = "operator4@example.com",
+                    AvatarId = 6
                 }
             );
 
@@ -278,6 +291,26 @@ namespace HoustonOnWire.Models
                 {
                     AvatarId = 4,
                     Url = "/assets/av-4.png"
+                },
+                new Avatar
+                {
+                    AvatarId = 5,
+                    Url = "/assets/av-5.png"
+                },
+                new Avatar
+                {
+                    AvatarId = 6,
+                    Url = "/assets/av-6.png"
+                },
+                new Avatar
+                {
+                    AvatarId = 7,
+                    Url = "/assets/av-7.png"
+                },
+                new Avatar
+                {
+                    AvatarId = 8,
+                    Url = "/assets/av-8.png"
                 }
             );
 
@@ -362,6 +395,11 @@ namespace HoustonOnWire.Models
 
 
 
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
         }
 
         public override int SaveChanges()

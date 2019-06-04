@@ -4,6 +4,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+
+    <TypeScriptExperimentalDecorators>true</TypeScriptExperimentalDecorators>
+    
     <IsPackable>false</IsPackable>
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
@@ -25,21 +28,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\models\channelCustomers.ts" />
+    <None Remove="ClientApp\src\app\animations.ts" />
+    <None Remove="ClientApp\src\app\models\channelCustomer.ts" />
     <None Remove="ClientApp\src\app\models\index.ts" />
-    <None Remove="ClientApp\src\app\models\repository.ts" />
+    <None Remove="ClientApp\src\app\services\channel-detail-resolver.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\pages\" />
-    <Folder Include="ClientApp\src\app\services\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\models\channelCustomers.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\animations.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\channelCustomer.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\index.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\repository.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\channel-detail-resolver.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
@@ -69,4 +73,6 @@
     </ItemGroup>
   </Target>
 
+  
+  
 </Project>

@@ -7,7 +7,9 @@ import { ChannelService } from '../../services/channel.service';
 
 import { PaginationObject } from '../../components/paginator/pagination-object';
 import { PaginatorComponent } from '../../components/paginator/paginator.component';
-import { PagedResponse, Channel, LinkInfo, Paging, ChannelsRequestObject } from '../../models';
+import { PagedResponse, Channel, LinkInfo, Paging, RequestObject } from '../../models';
+
+
 
 @Component({
   selector: 'app-channels',
@@ -23,7 +25,7 @@ export class ChannelsComponent implements OnInit {
   paging: Paging = {} as Paging;
   links: LinkInfo[] = [];
 
-  filterParam$: BehaviorSubject<ChannelsRequestObject> = new BehaviorSubject(new ChannelsRequestObject);
+  filterParam$: BehaviorSubject<RequestObject> = new BehaviorSubject(new RequestObject);
   get term():string  {
     return this.filterParam$.value.term;
   }
@@ -59,7 +61,8 @@ export class ChannelsComponent implements OnInit {
       });
     this.route.paramMap
       .subscribe(params => {
-        if (params.get("id") && params.get("page")) {
+        console.log("page=", params.get("page"));
+        if (params.get("id") && (params.get("page")!=null)) {
           this.filterParam$.next(Object.assign(this.filterParam$.value, {
             pageNumber: params.get("page"),
             term: params.get("term"),
@@ -97,13 +100,27 @@ export class ChannelsComponent implements OnInit {
     }));
   }
 
-  onSelect(id) {
-    this.router.navigate(['how/channel', id, {
+  showDetails(id) {
+    this.router.navigate(['how/channel-details', id, {
       page: this.filterParam$.value.pageNumber,
       term: this.filterParam$.value.term,
       psize: this.filterParam$.value.pageSize
     }]);
   }
 
+  createChannel() {
+    this.router.navigate(['how/channel-add']);
+  }
+
+  editChannel(id) {
+    this.router.navigate(['how/channel-edit', id]);
+  }
+
+  deleteChannel(id) {
+    this.channelsService.deleteChannel(id).subscribe(result =>
+        this.filterParam$.next(Object.assign(this.filterParam$.value, this.filterParam$.value))
+    );
+ 
+  }
 
 }

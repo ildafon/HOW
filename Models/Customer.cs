@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HoustonOnWire.Models;
+using HoustonOnWire.Lib;
 
 namespace HoustonOnWire.Models
 {
@@ -23,5 +24,13 @@ namespace HoustonOnWire.Models
         public ICollection<Chat> Chats { get; set; }
 
         
+    }
+
+
+    public class CustomerOutputModel
+    {
+        public PagingHeader Paging { get; set; }
+        public List<LinkInfo> Links { get; set; }
+        public List<Customer> Items { get; set; }
     }
 }

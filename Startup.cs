@@ -47,6 +47,7 @@ namespace HoustonOnWire
 
 
             services.AddScoped<IChannelService, ChannelService>();
+            services.AddScoped<ICustomerService, CustomerService>();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)

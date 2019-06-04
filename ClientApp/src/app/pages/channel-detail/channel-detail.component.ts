@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { ChannelService } from '../../services/channel.service';
 import { Channel } from '../../models';
 import { Subscription } from 'rxjs';
@@ -6,12 +6,20 @@ import { switchMap } from 'rxjs/operators';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
+import { slideInDownAnimation } from '../../animations';
+
 @Component({
   selector: 'app-channel-detail',
   templateUrl: './channel-detail.component.html',
-  styleUrls: ['./channel-detail.component.css']
+  styleUrls: ['./channel-detail.component.css'],
+  animations: [slideInDownAnimation]
 })
 export class ChannelDetailComponent implements OnInit, OnDestroy {
+  @HostBinding('@routeAnimation') routeAnimation = true;
+  @HostBinding('style.display') display = 'block';
+  @HostBinding('style.position') position = 'absolute';
+
+
   channel: Channel;
   subscription: Subscription;
   id: string;
@@ -25,11 +33,7 @@ export class ChannelDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    //this.subscription = this.route.paramMap.pipe(
-    //  switchMap((params: ParamMap) =>
-    //    this.channelService.getChannel(+params.get('id')))
-    //  )
-    //  .subscribe(result => this.channel = result);
+    
 
     this.id = this.route.snapshot.paramMap.get("id");
     this.page = this.route.snapshot.paramMap.get("page");

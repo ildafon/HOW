@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Channel } from '../models/channel.model';
-import { channelCustomer } from '../models/channelCustomers';
+import { Channel, ChannelCustomer } from '../models';
+
 
 
 @Pipe({

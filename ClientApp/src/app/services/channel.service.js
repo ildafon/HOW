@@ -10,19 +10,10 @@ var core_1 = require("@angular/core");
 var rxjs_1 = require("rxjs");
 var models_1 = require("../models");
 var ChannelService = /** @class */ (function () {
-    //get term(): string {
-    //  return this.requestObject$.value.term;
-    //}
-    //set term(t: string) {
-    //  this.requestObject$.next(Object.assign(this.requestObject$.value, { term: t }));
-    //}
-    //get page(): number {
-    //  return this.requestObject$.value.pageNumber;
-    //}
-    function ChannelService(api) {
+    function ChannelService(api, localStorageService) {
         this.api = api;
-        this.requestObject$ = new rxjs_1.BehaviorSubject(new models_1.RequestObject);
-        this.requestObject = this.requestObject$.asObservable();
+        this.localStorageService = localStorageService;
+        this.requestObject$ = new rxjs_1.BehaviorSubject(this.getRequestObjectInitial());
     }
     Object.defineProperty(ChannelService.prototype, "currentRequestObject", {
         get: function () {
@@ -31,8 +22,17 @@ var ChannelService = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(ChannelService.prototype, "requestObject", {
+        get: function () {
+            return this.requestObject$.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
     ChannelService.prototype.changeRequestObject = function (reqObj) {
+        //console.log("changeRequestObject call!");
         this.requestObject$.next(Object.assign(this.requestObject$.value, reqObj));
+        this.localStorageService.setItem("CHANNEL_REQUEST_OBJECT", this.currentRequestObject);
     };
     ChannelService.prototype.getChannelsPaged = function (channelRequestObj) {
         return this.api.sendRequest("GET", '/api/channels'
@@ -61,6 +61,13 @@ var ChannelService = /** @class */ (function () {
     };
     ChannelService.prototype.deleteChannel = function (id) {
         return this.api.sendRequest("DELETE", "/api/channels/" + id);
+    };
+    ChannelService.prototype.refresh = function () {
+        this.requestObject$.next(Object.assign(this.requestObject$.value, {}));
+    };
+    ChannelService.prototype.getRequestObjectInitial = function () {
+        return this.localStorageService
+            .getItem("CHANNEL_REQUEST_OBJECT") || new models_1.RequestObject;
     };
     ChannelService = __decorate([
         core_1.Injectable()

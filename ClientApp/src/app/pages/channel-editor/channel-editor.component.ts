@@ -67,7 +67,9 @@ export class ChannelEditorComponent implements OnInit {
 
   private onCreate() {
     this.cs.createChannel(this.channel)
-      .subscribe((channel: Channel) => {
+      .subscribe((ch: Channel) => {
+        
+        this.cs.changeRequestObject({ visitedId: ch});
         this.router.navigate(['/how/channels']);
       });
   }

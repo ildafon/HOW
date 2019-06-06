@@ -17,6 +17,7 @@ import { SimpleChatComponent } from './simple-chat/simple-chat.component';
 import { ApiService } from './services/api.service';
 import { ChannelService } from './services/channel.service';
 import { CustomerService } from './services/customer.service';
+import { LocalStorageService } from './services/local-storage.service';
 import { CustomersOfChannelPipe } from './pipes/customers-of-channel.pipe';
 
 import { ComponentsModule } from './components/components.module';
@@ -27,6 +28,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ChannelEditorComponent } from './pages/channel-editor/channel-editor.component';
 import { ChannelDetailResolver } from './services/channel-detail-resolver.service';
 import { CustomersResolverService } from './services/customers-resolver.service';
+import { DeleteConfirmationComponent } from './components/delete-confirmation/delete-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { CustomersResolverService } from './services/customers-resolver.service'
     ChannelsComponent,
     ChannelDetailComponent,
     NotFoundComponent,
-    ChannelEditorComponent
+    ChannelEditorComponent,
+    DeleteConfirmationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -61,34 +64,40 @@ import { CustomersResolverService } from './services/customers-resolver.service'
         children: [
           {
             path: 'channels',
-            component: ChannelsComponent,
-            data: {title: 'List of Channels'}
+            children: [
+              {
+                path: '',
+                component: ChannelsComponent,
+                data: { title: 'List of Channels' },
+              },
+              {
+                path: ':id/channel-details',
+                component: ChannelDetailComponent,
+                resolve: {
+                  channel: ChannelDetailResolver,
+                },
+                data: { title: 'Channel Details' }
+              },
+              {
+                path: 'channel-add',
+                component: ChannelEditorComponent,
+                resolve: {
+                  customers: CustomersResolverService
+                },
+                data: { title: 'Add Channel' }
+
+              }, {
+                path: ':id/channel-edit',
+                component: ChannelEditorComponent,
+                resolve: {
+                  channel: ChannelDetailResolver,
+                  customers: CustomersResolverService
+                },
+                data: { title: 'Edit Channel' }
+              },
+            ]
           }, 
-          {
-            path: 'channel-details/:id',
-            component: ChannelDetailComponent,
-            resolve: {
-              channel: ChannelDetailResolver,
-            },
-            data: {title: 'Channel Details'}
-          },
-          {
-            path: 'channel-add',
-            component: ChannelEditorComponent,
-            resolve: {
-              customers: CustomersResolverService
-            },
-            data: { title: 'Add Channel' }
-            
-          }, {
-            path: 'channel-edit/:id',
-            component: ChannelEditorComponent,
-            resolve: {
-              channel: ChannelDetailResolver,
-              customers: CustomersResolverService 
-            },
-            data: {title: 'Edit Channel'}
-          },
+          
           {
             path: '',
             redirectTo: 'channels',
@@ -96,15 +105,21 @@ import { CustomersResolverService } from './services/customers-resolver.service'
           }          
         ]
       },
+      {
+        path: 'delete-confirm',
+        component: DeleteConfirmationComponent,
+        outlet: 'popup'
+      },
       { path: '**', component: NotFoundComponent }
     ])
   ],
   providers: [
+    LocalStorageService,
     ApiService,
     ChannelService,
     ChannelDetailResolver,
     CustomerService,
-    CustomersResolverService
+    CustomersResolverService,
   ],
   bootstrap: [AppComponent]
 })

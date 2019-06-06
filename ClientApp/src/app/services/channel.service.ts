@@ -1,37 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ApiService } from './api.service';
-import { PagedResponse, Channel, RequestObject, Customer } from '../models';
+import { PagedResponse, Channel, RequestObject, IRequestObject, Customer } from '../models';
+import { LocalStorageService } from './local-storage.service';
+
 
 
 @Injectable()
 export class ChannelService {
-  
-  private requestObject$: BehaviorSubject<RequestObject> = new BehaviorSubject(new RequestObject);
+  private requestObjestInitial: RequestObject;
+
+  private requestObject$ = new BehaviorSubject <RequestObject>(this.getRequestObjectInitial());
   get currentRequestObject() {
     return this.requestObject$.getValue();
   }
-  requestObject = this.requestObject$.asObservable();
-
-  
-  changeRequestObject(reqObj: Object) {
-    this.requestObject$.next((<any>Object).assign(this.requestObject$.value, reqObj));
+  get requestObject() {
+    return this.requestObject$.asObservable();
   }
 
-  //get term(): string {
-  //  return this.requestObject$.value.term;
-  //}
+  
 
-  //set term(t: string) {
-  //  this.requestObject$.next(Object.assign(this.requestObject$.value, { term: t }));
-  //}
-
-  //get page(): number {
-  //  return this.requestObject$.value.pageNumber;
-  //}
+  constructor(private api: ApiService, private localStorageService: LocalStorageService) {
+   
+     
+  }
 
 
-  constructor(private api: ApiService) { }
+  changeRequestObject(reqObj: Object) {
+    //console.log("changeRequestObject call!");
+    this.requestObject$.next((<any>Object).assign(this.requestObject$.value, reqObj));
+    this.localStorageService.setItem<RequestObject>(`CHANNEL_REQUEST_OBJECT`, this.currentRequestObject);
+  }
+
+
 
   getChannelsPaged(channelRequestObj: RequestObject): Observable<PagedResponse<Channel>> {
     return this.api.sendRequest<PagedResponse<Channel>>("GET", '/api/channels'
@@ -65,7 +66,16 @@ export class ChannelService {
   }
 
 
-  deleteChannel(id: number): Observable<number> {
+  deleteChannel(id: number): Observable<number>{
     return this.api.sendRequest<number>("DELETE", `/api/channels/${id}`);
+  }
+
+  refresh() {
+    this.requestObject$.next((<any>Object).assign(this.requestObject$.value, {}));
+  }
+
+  private getRequestObjectInitial() {
+    return this.localStorageService
+      .getItem<RequestObject>(`CHANNEL_REQUEST_OBJECT`) || new RequestObject;
   }
 }

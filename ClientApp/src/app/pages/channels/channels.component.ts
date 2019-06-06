@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription, BehaviorSubject } from 'rxjs';
@@ -29,7 +29,7 @@ export class ChannelsComponent implements OnInit {
 
   constructor(private cs: ChannelService,
               public router: Router,
-              public route: ActivatedRoute) {}
+    public route: ActivatedRoute) {}
 
 
   ngOnInit() {
@@ -42,6 +42,11 @@ export class ChannelsComponent implements OnInit {
         this.visitedId = this.cs.currentRequestObject.visitedId;
         
       });
+    this.route.paramMap.subscribe((param: ParamMap) => {
+      param.keys
+    })
+
+    
 
   }
 
@@ -52,7 +57,7 @@ export class ChannelsComponent implements OnInit {
 
 
   onPage(event: PaginationObject) {
-
+    this.router.navigate([{ outlets: { popup: null } }]);
     this.cs.changeRequestObject({
       pageNumber: event.pageNumber,
       pageSize: event.pageSize
@@ -61,35 +66,49 @@ export class ChannelsComponent implements OnInit {
   }
 
   onFilter(event) {
+    this.router.navigate([{ outlets: { popup: null } }]);
     this.cs.changeRequestObject({
       term: event.target.value
     });
   }
 
   onFilterFocus() {
+    this.router.navigate([{ outlets: { popup: null } }]);
     this.cs.changeRequestObject({
       pageNumber: 1
     });
   }
 
   showDetails(id) {
-    this.router.navigate(['how/channel-details', id
-    ]);
+    this.router.navigate([{
+      outlets: {
+        primary: ['how','channels',id, 'channel-details'],
+        popup: null
+      }
+    }]);
   }
 
   createChannel() {
-    this.router.navigate(['how/channel-add']);
+   
+    this.router.navigate([{
+      outlets: {
+        primary: ['how','channels','channel-add'],
+        popup: null
+      }
+    }]);
   }
 
   editChannel(id) {
-    this.router.navigate(['how/channel-edit', id
-    ]);
+    this.router.navigate([{
+      outlets: {
+        primary: ['how', 'channels',id, 'channel-edit'],
+        popup: null
+      }
+    }]);
   }
 
-  deleteChannel(id) {
-    this.cs.deleteChannel(id).subscribe(result =>
-      this.cs.changeRequestObject({})
-    );
+  onDeleteChannel(id) {
+    this.router.navigate([{ outlets: { popup: ['delete-confirm', {'id': id}] } }]);
  
   }
 

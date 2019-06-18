@@ -1,5 +1,5 @@
 <div class="mb-2">
-  <button *ngFor="let p of pageNumbers" class="btn btn-outline-primary"
+  <button [class.hidden]="pageNumbers.length == 1" *ngFor="let p of pageNumbers" class="btn btn-outline-primary"
           (click)="onPageChange(p)"
           [class.focus]="p == pageNumber"
           [class.active]="p == pageNumber">

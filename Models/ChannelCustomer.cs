@@ -18,4 +18,18 @@ namespace HoustonOnWire.Models
 
         public DateTime Received { get; set; }
     }
+
+
+    public class ChannelCustomerOutputModel
+    {
+
+        public long? ChannelId { get; set; }
+        public Channel Channel { get; set; }
+
+
+        public long? CustomerId { get; set; }
+        public Customer Customer { get; set; }
+
+        public DateTime Received { get; set; }
+    }
 }

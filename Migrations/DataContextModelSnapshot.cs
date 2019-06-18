@@ -25,6 +25,8 @@ namespace HoustonOnWire.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("Received");
+
                     b.Property<string>("Url");
 
                     b.HasKey("AvatarId");
@@ -32,14 +34,14 @@ namespace HoustonOnWire.Migrations
                     b.ToTable("Avatars");
 
                     b.HasData(
-                        new { AvatarId = 1L, Url = "/assets/av-1.png" },
-                        new { AvatarId = 2L, Url = "/assets/av-2.png" },
-                        new { AvatarId = 3L, Url = "/assets/av-3.png" },
-                        new { AvatarId = 4L, Url = "/assets/av-4.png" },
-                        new { AvatarId = 5L, Url = "/assets/av-5.png" },
-                        new { AvatarId = 6L, Url = "/assets/av-6.png" },
-                        new { AvatarId = 7L, Url = "/assets/av-7.png" },
-                        new { AvatarId = 8L, Url = "/assets/av-8.png" }
+                        new { AvatarId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Url = "/assets/av-1.png" },
+                        new { AvatarId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Url = "/assets/av-2.png" },
+                        new { AvatarId = 3L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Url = "/assets/av-3.png" },
+                        new { AvatarId = 4L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Url = "/assets/av-4.png" },
+                        new { AvatarId = 5L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Url = "/assets/av-5.png" },
+                        new { AvatarId = 6L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Url = "/assets/av-6.png" },
+                        new { AvatarId = 7L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Url = "/assets/av-7.png" },
+                        new { AvatarId = 8L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Url = "/assets/av-8.png" }
                     );
                 });
 
@@ -59,55 +61,7 @@ namespace HoustonOnWire.Migrations
 
                     b.HasData(
                         new { ChannelId = 1L, Name = "Test1", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 2L, Name = "Test2", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 3L, Name = "Test3", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 4L, Name = "Test4", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 5L, Name = "Test5", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 6L, Name = "Test6", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 7L, Name = "Test7", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 8L, Name = "Test8", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 9L, Name = "Test9", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 10L, Name = "Test10", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 11L, Name = "Test11", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 12L, Name = "Test12", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 13L, Name = "Test13", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 14L, Name = "Test14", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 15L, Name = "Test15", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 16L, Name = "Test16", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 17L, Name = "Test17", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 18L, Name = "Test18", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 19L, Name = "Test19", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 20L, Name = "Test20", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 21L, Name = "Test21", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 22L, Name = "Test22", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 23L, Name = "Test23", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 24L, Name = "Test24", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 25L, Name = "Test25", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 26L, Name = "Test26", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 27L, Name = "Test27", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 28L, Name = "Test28", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 29L, Name = "Test29", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 30L, Name = "Test30", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 31L, Name = "Test31", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 32L, Name = "Test32", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 33L, Name = "Test33", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 34L, Name = "Test34", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 35L, Name = "Test35", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 36L, Name = "Test36", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 37L, Name = "Test37", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 38L, Name = "Test38", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 39L, Name = "Test39", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 40L, Name = "Test40", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 41L, Name = "Test41", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 42L, Name = "Test42", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 43L, Name = "Test43", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 44L, Name = "Test44", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 45L, Name = "Test45", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 46L, Name = "Test46", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 47L, Name = "Test47", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 48L, Name = "Test48", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 49L, Name = "Test49", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 50L, Name = "Test50", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                        new { ChannelId = 2L, Name = "Test2", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                     );
                 });
 
@@ -129,103 +83,7 @@ namespace HoustonOnWire.Migrations
                         new { ChannelId = 1L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                         new { ChannelId = 1L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                         new { ChannelId = 2L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 2L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 3L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 3L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 4L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 4L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 5L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 5L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 6L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 6L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 7L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 7L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 8L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 8L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 9L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 9L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 10L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 10L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 11L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 11L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 12L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 12L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 13L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 13L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 14L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 14L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 15L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 15L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 16L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 16L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 17L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 17L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 18L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 18L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 19L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 19L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 20L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 20L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 21L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 21L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 22L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 22L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 23L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 23L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 24L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 24L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 25L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 25L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 26L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 26L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 27L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 27L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 28L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 28L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 29L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 29L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 30L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 30L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 31L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 31L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 32L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 32L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 33L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 33L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 34L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 34L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 35L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 35L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 36L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 36L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 37L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 37L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 38L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 38L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 39L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 39L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 40L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 40L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 41L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 41L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 42L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 42L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 43L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 43L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 44L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 44L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 45L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 45L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 46L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 46L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 47L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 47L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 48L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 48L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 49L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 49L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 50L, CustomerId = 1L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ChannelId = 50L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                        new { ChannelId = 2L, CustomerId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                     );
                 });
 
@@ -243,6 +101,8 @@ namespace HoustonOnWire.Migrations
 
                     b.Property<long?>("LastMessageId");
 
+                    b.Property<DateTime>("Received");
+
                     b.Property<int>("Score");
 
                     b.Property<long>("VisitorId");
@@ -257,8 +117,8 @@ namespace HoustonOnWire.Migrations
                     b.ToTable("Chats");
 
                     b.HasData(
-                        new { ChatId = 1L, CustomerFirstResponse = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), CustomerId = 1L, IsActive = true, LastMessageId = 2L, Score = 10, VisitorId = 1L },
-                        new { ChatId = 2L, CustomerFirstResponse = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), CustomerId = 1L, IsActive = true, LastMessageId = 4L, Score = 5, VisitorId = 2L }
+                        new { ChatId = 1L, CustomerFirstResponse = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), CustomerId = 1L, IsActive = true, LastMessageId = 2L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Score = 10, VisitorId = 1L },
+                        new { ChatId = 2L, CustomerFirstResponse = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), CustomerId = 1L, IsActive = true, LastMessageId = 4L, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Score = 5, VisitorId = 2L }
                     );
                 });
 
@@ -274,6 +134,8 @@ namespace HoustonOnWire.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<DateTime>("Received");
+
                     b.HasKey("CustomerId");
 
                     b.HasIndex("AvatarId")
@@ -283,10 +145,10 @@ namespace HoustonOnWire.Migrations
                     b.ToTable("Customers");
 
                     b.HasData(
-                        new { CustomerId = 1L, AvatarId = 1L, Email = "operator1@example.com", Name = "Operator1" },
-                        new { CustomerId = 2L, AvatarId = 2L, Email = "operator2@example.com", Name = "Operator2" },
-                        new { CustomerId = 3L, AvatarId = 5L, Email = "operator3@example.com", Name = "Operator3" },
-                        new { CustomerId = 4L, AvatarId = 6L, Email = "operator4@example.com", Name = "Operator4" }
+                        new { CustomerId = 1L, AvatarId = 1L, Email = "operator1@example.com", Name = "Operator1", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                        new { CustomerId = 2L, AvatarId = 2L, Email = "operator2@example.com", Name = "Operator2", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                        new { CustomerId = 3L, AvatarId = 5L, Email = "operator3@example.com", Name = "Operator3", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                        new { CustomerId = 4L, AvatarId = 6L, Email = "operator4@example.com", Name = "Operator4", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                     );
                 });
 
@@ -337,6 +199,8 @@ namespace HoustonOnWire.Migrations
 
                     b.Property<string>("Phone");
 
+                    b.Property<DateTime>("Received");
+
                     b.HasKey("VisitorId");
 
                     b.HasIndex("AvatarId")
@@ -346,8 +210,8 @@ namespace HoustonOnWire.Migrations
                     b.ToTable("Visitors");
 
                     b.HasData(
-                        new { VisitorId = 1L, AvatarId = 3L, Comment = "Comment1", Email = "visitor1@example.com", Name = "Visitor1", Phone = "+79190000001" },
-                        new { VisitorId = 2L, AvatarId = 4L, Comment = "Comment2", Email = "visitor2@example.com", Name = "Visitor2", Phone = "+79190000002" }
+                        new { VisitorId = 1L, AvatarId = 3L, Comment = "Comment1", Email = "visitor1@example.com", Name = "Visitor1", Phone = "+79190000001", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                        new { VisitorId = 2L, AvatarId = 4L, Comment = "Comment2", Email = "visitor2@example.com", Name = "Visitor2", Phone = "+79190000002", Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                     );
                 });
 

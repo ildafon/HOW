@@ -14,5 +14,7 @@ namespace HoustonOnWire.Models
 
         public Visitor Visitor { get; set; }
         public Customer Customer { get; set; }
+
+        public DateTime Received { get; set; }
     }
 }

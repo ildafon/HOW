@@ -29,9 +29,11 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\animations.ts" />
+    <None Remove="ClientApp\src\app\app.config.ts" />
     <None Remove="ClientApp\src\app\models\channelCustomer.ts" />
     <None Remove="ClientApp\src\app\models\index.ts" />
     <None Remove="ClientApp\src\app\services\channel-detail-resolver.service.ts" />
+    <None Remove="ClientApp\src\app\services\paging-service-factory.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,9 +43,11 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\animations.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\app.config.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\channelCustomer.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\index.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\services\channel-detail-resolver.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\resolvers\channel-detail-resolver.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\paging-service-factory.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

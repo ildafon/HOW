@@ -3,7 +3,6 @@ export interface Paging {
   pageNumber: number;
   pageSize: number;
   totalPages: number;
-  term?: string;
 }
 
 export interface LinkInfo {

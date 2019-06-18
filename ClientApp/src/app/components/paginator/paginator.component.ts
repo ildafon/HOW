@@ -1,6 +1,8 @@
-import { Component, OnInit, EventEmitter, Input, Output, ViewChild, OnChanges} from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, Inject} from '@angular/core';
 import { PaginationObject } from './pagination-object';
 import { ChannelService } from '../../services/channel.service';
+import { PagingService } from '../../services/paging.service';
+import { CHANNEL_PAGING } from '../../app.config';
 
 @Component({
   selector: 'app-paginator',
@@ -26,10 +28,11 @@ export class PaginatorComponent implements OnInit {
  
 
 
-  constructor(private cs: ChannelService) { }
+  constructor(private cs: ChannelService,
+    @Inject(CHANNEL_PAGING)  private pagingService: PagingService) { }
 
   ngOnInit() {
-    this.cs.requestObject.subscribe(reqobj => this.pageNumber = reqobj.pageNumber);
+    this.pagingService.requestObject.subscribe(reqobj => this.pageNumber = reqobj.pageNumber);
    
   }
  
@@ -44,14 +47,14 @@ export class PaginatorComponent implements OnInit {
       this.paginationObject.pageSize = this.pageSize;
       this.page.emit(this.paginationObject);
     }
-    //console.log("emmited ", pageNum);
+    
   }
 
   onPageSizeChange(pageSize: number) {
     if (pageSize == this.pageSize) return;
-    if (pageSize > 0) {
+    if (pageSize >= 0) {
       this.paginationObject.pageSize = pageSize;
-      this.paginationObject.pageNumber = this.pageNumber;
+      this.paginationObject.pageNumber = 1;
       this.page.emit(this.paginationObject);
     }
   }

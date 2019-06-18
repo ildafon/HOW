@@ -1,0 +1,27 @@
+
+<div class="row">
+  <div class="card">
+    <div class="w-25 center">
+      <img src="{{customer?.avatar?.url}}" class="card-img-top" alt="...">
+    </div>
+
+    <div class="card-body">
+      <h5 class="card-title">{{customer.name}}</h5>
+      <p class="card-text">{{customer.email}}</p>
+      <p class="card-text"><small class="text-muted">Last updated  mins ago</small></p>
+    </div>
+
+    <div class="card-footer bg-transparent border-success">
+      <ul class="list-group">
+        <li *ngFor="let channel of customer.channelCustomers" class="list-group-item">
+          <a [routerLink]="['/how/channels', channel.channelId, 'channel-details']">{{channel.channel.name}}</a>         
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<button class="btn btn-secondary" (click)="back()">&#x2190;</button>
+<button class="btn btn-secondary" (click)="backToCustomers()">Back To Customers</button>
+

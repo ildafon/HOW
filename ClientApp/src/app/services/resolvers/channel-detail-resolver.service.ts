@@ -1,6 +1,6 @@
 import { Resolve, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
-import { Channel } from "../models";
-import { ChannelService } from "./channel.service";
+import { Channel } from "../../models";
+import { ChannelService } from "../channel.service";
 import { Observable } from "rxjs";
 import { take, map } from "rxjs/operators";
 import { Injectable } from "@angular/core";

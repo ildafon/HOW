@@ -1,13 +1,15 @@
 <div *ngIf="!channels">Loading...</div>
 
-<div  class="row">
+<div class="row">
   <router-outlet></router-outlet>
 </div>
 
 <br />
 
 <div class="row mt-2">
-  <input type="text" placeholder="Enter filter" (input)="onFilter($event)"  (focus)="onFilterFocus()" class="m-2" />
+  <input type="text" placeholder="Enter filter"
+         (input)="onFilter($event)"
+         (focus)="onFilterFocus()" class="m-2" />
 </div>
 
 
@@ -24,7 +26,7 @@
         <td>
           <span><button class="btn btn-primary" (click)="showDetails(channel.channelId)">Detail</button></span>
           <span><button class="btn btn-primary" (click)="editChannel(channel.channelId)">Edit</button></span>
-          <span><button class="btn btn-danger" (click)="onDeleteChannel(channel.channelId)">Delete</button></span>
+          <span><button class="btn btn-danger" (click)="onDeleteChannel(content, channel.channelId)">Delete</button></span>
 
         </td>
       </tr>
@@ -45,6 +47,7 @@
 <div class="row text-center">
   <button class="btn btn-primary" (click)="createChannel()">Create New Channel</button>
 </div>
+
 
 
 

@@ -13,11 +13,11 @@ namespace HoustonOnWire.Models
         
         public string Content { get; set; }
         public bool FromVisitor { get; set; }
-        public DateTime Received { get; set; }
+        
 
         public long ChatId { get; set; }
         public Chat Chat { get; set; }
 
-        
+        public DateTime Received { get; set; }
     }
 }

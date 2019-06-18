@@ -1,15 +1,23 @@
 
-<table *ngIf="channel" class="table table-sm table-bordered my-2">
-  <tr><th colspan="2">Channel Detail</th></tr>
-  <tr><th>Id</th><td>{{channel.channelId}}</td></tr>
-  <tr><th>Name</th><td>{{channel.name}}</td></tr>
-  <tr><th colspan="2">Customers</th></tr>
-  <ng-template ngFor let-customer [ngForOf]="channel.channelCustomers">
-  
-    <tr><th>Name</th><td>{{customer.customer.name}}</td></tr>
-    <tr><th>Email</th><td>{{customer.customer.email}}</td></tr>
-    <tr><th colspan="2"></th></tr>
-</ng-template>
-</table>
+  <table *ngIf="channel" class="table table-sm table-bordered my-2">
+    <tr><th colspan="2">Channel Detail</th></tr>
+    <!--<tr><th>Id</th><td>{{channel.channelId}}</td></tr>-->
+    <tr><th>Name</th><td>{{channel.name}}</td></tr>
+    <tr><th colspan="2">Customers</th></tr>
+    <ng-template ngFor let-customer [ngForOf]="channel.channelCustomers">
 
+      <tr>
+        <th>Name</th>
+        <td>
+          <a [routerLink]="['/how/customers', customer.customerId, 'customer-details']">{{customer.customer.name}}</a>
+        </td>
+      </tr>
+      <tr><th>Email</th><td>{{customer.customer.email}}</td></tr>
+      <tr><th colspan="2"></th></tr>
+
+    </ng-template>
+    <tr><p class="card-text"><small class="text-muted">Last updated at {{channel.received | date:'medium'}}</small></p></tr>
+  </table>
+
+<button class="btn btn-secondary" (click)="back()">&#x2190;</button>
 <button class="btn btn-secondary" (click)="backToChannels()">Back To Channels</button>

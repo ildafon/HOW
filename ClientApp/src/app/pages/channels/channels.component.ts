@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -8,6 +8,11 @@ import { ChannelService } from '../../services/channel.service';
 import { PaginationObject } from '../../components/paginator/pagination-object';
 import { PaginatorComponent } from '../../components/paginator/paginator.component';
 import { PagedResponse, Channel, LinkInfo, Paging, RequestObject } from '../../models';
+import { PagingService } from '../../services/paging.service';
+import { CHANNEL_PAGING } from '../../app.config';
+
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ModalConfirmComponent } from '../modal-confirm/modal-confirm.component';
 
 
 
@@ -27,27 +32,26 @@ export class ChannelsComponent implements OnInit {
 
   
 
-  constructor(private cs: ChannelService,
-              public router: Router,
-    public route: ActivatedRoute) {}
+  constructor(private channelService: ChannelService,
+    public router: Router,
+    public route: ActivatedRoute,
+    private modalService: NgbModal,
+    @Inject(CHANNEL_PAGING) private pagingService: PagingService,
+
+  ) { }
 
 
   ngOnInit() {
 
-    this.subscription = this.cs.requestObject
-      .switchMap(value => this.cs.getChannelsPaged(value))
+    this.subscription = this.pagingService.requestObject
+      .switchMap(value => this.channelService.getChannels(value))
       .subscribe((pagedResponse: PagedResponse<Channel>) => {
         this.channels = pagedResponse.items;
         this.paging = pagedResponse.paging;
-        this.visitedId = this.cs.currentRequestObject.visitedId;
+        this.visitedId = this.pagingService.currentRequestObject.visitedId;
         
       });
-    this.route.paramMap.subscribe((param: ParamMap) => {
-      param.keys
-    })
-
     
-
   }
 
   ngOnDestroy() {
@@ -57,8 +61,8 @@ export class ChannelsComponent implements OnInit {
 
 
   onPage(event: PaginationObject) {
-    this.router.navigate([{ outlets: { popup: null } }]);
-    this.cs.changeRequestObject({
+    
+    this.pagingService.changeRequestObject({
       pageNumber: event.pageNumber,
       pageSize: event.pageSize
     });
@@ -66,15 +70,15 @@ export class ChannelsComponent implements OnInit {
   }
 
   onFilter(event) {
-    this.router.navigate([{ outlets: { popup: null } }]);
-    this.cs.changeRequestObject({
+    
+    this.pagingService.changeRequestObject({
       term: event.target.value
     });
   }
 
   onFilterFocus() {
-    this.router.navigate([{ outlets: { popup: null } }]);
-    this.cs.changeRequestObject({
+    
+    this.pagingService.changeRequestObject({
       pageNumber: 1
     });
   }
@@ -82,8 +86,8 @@ export class ChannelsComponent implements OnInit {
   showDetails(id) {
     this.router.navigate([{
       outlets: {
-        primary: ['how','channels',id, 'channel-details'],
-        popup: null
+        primary: ['how','channels',id, 'channel-details']
+        
       }
     }]);
   }
@@ -92,8 +96,7 @@ export class ChannelsComponent implements OnInit {
    
     this.router.navigate([{
       outlets: {
-        primary: ['how','channels','channel-add'],
-        popup: null
+        primary: ['how','channels','channel-add']
       }
     }]);
   }
@@ -101,15 +104,27 @@ export class ChannelsComponent implements OnInit {
   editChannel(id) {
     this.router.navigate([{
       outlets: {
-        primary: ['how', 'channels',id, 'channel-edit'],
-        popup: null
+        primary: ['how', 'channels',id, 'channel-edit']
+        
       }
     }]);
   }
 
   onDeleteChannel(id) {
-    this.router.navigate([{ outlets: { popup: ['delete-confirm', {'id': id}] } }]);
- 
+    let modal = this.modalService.open(ModalConfirmComponent);
+    modal.componentInstance.name = 'Channel';
+    modal.result.then((result) => {
+      this.onDeleteConfirmation(id);
+    }, () => { });
+  }
+
+  onDeleteConfirmation(id) {
+    this.channelService.deleteChannel(+id)
+      .subscribe(result => {
+        this.pagingService.changeRequestObject({
+          pageNumber: 1
+        });
+      });
   }
 
 }

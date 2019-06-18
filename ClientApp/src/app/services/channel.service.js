@@ -7,39 +7,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var rxjs_1 = require("rxjs");
+var operators_1 = require("rxjs/operators");
 var models_1 = require("../models");
 var ChannelService = /** @class */ (function () {
-    function ChannelService(api, localStorageService) {
+    function ChannelService(api) {
         this.api = api;
-        this.localStorageService = localStorageService;
-        this.requestObject$ = new rxjs_1.BehaviorSubject(this.getRequestObjectInitial());
     }
-    Object.defineProperty(ChannelService.prototype, "currentRequestObject", {
-        get: function () {
-            return this.requestObject$.getValue();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ChannelService.prototype, "requestObject", {
-        get: function () {
-            return this.requestObject$.asObservable();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ChannelService.prototype.changeRequestObject = function (reqObj) {
-        //console.log("changeRequestObject call!");
-        this.requestObject$.next(Object.assign(this.requestObject$.value, reqObj));
-        this.localStorageService.setItem("CHANNEL_REQUEST_OBJECT", this.currentRequestObject);
-    };
-    ChannelService.prototype.getChannelsPaged = function (channelRequestObj) {
+    ChannelService.prototype.getChannels = function (channelRequestObj) {
         return this.api.sendRequest("GET", '/api/channels'
             + '?Related=' + channelRequestObj.related
             + '&PageNumber=' + channelRequestObj.pageNumber
             + '&PageSize=' + channelRequestObj.pageSize
             + '&Term=' + channelRequestObj.term);
+    };
+    ChannelService.prototype.getChannelsAll = function () {
+        var channelReqObj = new models_1.RequestObject(1, 0, false);
+        return this.getChannels(channelReqObj)
+            .pipe(operators_1.map(function (response) { return response.items; }));
     };
     ChannelService.prototype.getChannel = function (id) {
         return this.api.sendRequest("GET", "/api/channels/" + id);
@@ -61,13 +45,6 @@ var ChannelService = /** @class */ (function () {
     };
     ChannelService.prototype.deleteChannel = function (id) {
         return this.api.sendRequest("DELETE", "/api/channels/" + id);
-    };
-    ChannelService.prototype.refresh = function () {
-        this.requestObject$.next(Object.assign(this.requestObject$.value, {}));
-    };
-    ChannelService.prototype.getRequestObjectInitial = function () {
-        return this.localStorageService
-            .getItem("CHANNEL_REQUEST_OBJECT") || new models_1.RequestObject;
     };
     ChannelService = __decorate([
         core_1.Injectable()

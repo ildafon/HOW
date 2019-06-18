@@ -29,7 +29,7 @@ export class TestApiComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.subscription = this.filterParam$
-      .switchMap(value => this.channelsService.getChannelsPaged(value))
+      .switchMap(value => this.channelsService.getChannels(value))
       .subscribe((pagedResponse: PagedResponse<Channel>) => {
         this.channels = pagedResponse.items;
         this.paging = pagedResponse.paging;

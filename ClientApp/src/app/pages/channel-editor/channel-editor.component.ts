@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Channel, Customer, ChannelCustomer } from '../../models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChannelService } from '../../services/channel.service';
+import { PagingService } from '../../services/paging.service';
 import { NgForm } from '@angular/forms';
 import { forEach } from '@angular/router/src/utils/collection';
+import { CHANNEL_PAGING } from '../../app.config';
 
 export interface IRouterData {
   title: string,
@@ -25,7 +27,10 @@ export class ChannelEditorComponent implements OnInit {
   customersAvailable: Customer[];
   customersSelector: boolean[];
 
-  constructor(private route: ActivatedRoute, private cs: ChannelService, private router: Router) { }
+  constructor(private route: ActivatedRoute,
+    private cs: ChannelService,
+    private router: Router,
+    @Inject(CHANNEL_PAGING) private pagingService: PagingService) { }
 
   ngOnInit() {
     this.route.data.subscribe((data: IRouterData) => {
@@ -42,7 +47,7 @@ export class ChannelEditorComponent implements OnInit {
           return data.channel.channelCustomers.map(cc => cc.customerId).includes(array[index].customerId);
         })
         this.isNew = false;
-        this.cs.changeRequestObject({ visitedId: this.channel.channelId });
+        this.pagingService.changeRequestObject({ visitedId: this.channel.channelId });
       }
       
     });
@@ -68,8 +73,8 @@ export class ChannelEditorComponent implements OnInit {
   private onCreate() {
     this.cs.createChannel(this.channel)
       .subscribe((ch: Channel) => {
-        
-        this.cs.changeRequestObject({ visitedId: ch});
+
+        this.pagingService.changeRequestObject({ visitedId: ch });
         this.router.navigate(['/how/channels']);
       });
   }

@@ -11,7 +11,7 @@ export class Customer  {
     public email?: string,
     public avatar?: Avatar,
     public channelCustomers: ChannelCustomer[]=[],
-    public chats?: Chat[]
+    public chats: Chat[] = []
   ) { }
 }
 

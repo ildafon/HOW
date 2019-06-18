@@ -1,0 +1,58 @@
+
+
+<div class="row">
+  <router-outlet></router-outlet>
+</div>
+
+<br />
+
+<div class="row mt-2">
+  <input type="text" placeholder="Enter filter"
+         (input)="onFilter($event)"
+         (focus)="onFilterFocus()"
+         class="m-2" />
+</div>
+
+<div *ngIf="customers.length == 0">No Data yet...</div>
+
+<div *ngIf="customers.length > 0">
+  <table class="table table-sm">
+    <thead>
+      <tr><th></th><th>Name</th><th>Email</th><th>Channels</th><th></th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers" [class.active]="customer.customerId == visitedId">
+        <td><img src="{{customer?.avatar?.url}}" alt="{{customer.Name}}" width="40" height="40"/></td>
+        <td>{{customer.name}}</td>
+        <td>{{customer.email}}</td>
+        <td>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let row of customer.channelCustomers" class="list-group-item">{{row.channel.name}}</li>
+          </ul>
+        </td>
+        <td>
+          <span><button class="btn btn-primary" (click)="showDetails(customer.customerId)">Detail</button></span>
+          <span><button class="btn btn-primary" (click)="editCustomer(customer.customerId)">Edit</button></span>
+          <span><button class="btn btn-danger" (click)="onDelete(customer.customerId)">Delete</button></span>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<div class="row">
+  <app-paginator [totalPages]="paging.totalPages"
+                 [pageNumber]="page"
+                 [pageSize]="paging.pageSize"
+                 (page)="onPage($event)"></app-paginator>
+</div>
+
+<div class="row text-center">
+  <button class="btn btn-primary" (click)="createCustomer()">Create New Customer</button>
+</div>
+
+

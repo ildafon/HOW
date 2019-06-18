@@ -24,6 +24,7 @@ namespace HoustonOnWire.Lib
         public int TotalPages { get; }
         public string Term { get; }
 
+
         public string ToJson() => JsonConvert.SerializeObject(this,
             new JsonSerializerSettings
             {

@@ -22,6 +22,6 @@ namespace HoustonOnWire.Models
 
         public Chat Chat { get; set; }
 
-        
+        public DateTime Received { get; set; }
     }
 }

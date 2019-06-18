@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 
-using HoustonOnWire.OtherLayers;
+
 
 namespace HoustonOnWire
 {
@@ -44,10 +44,6 @@ namespace HoustonOnWire
 
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration["Data:Customers:ConnectionString"]));
-
-
-            services.AddScoped<IChannelService, ChannelService>();
-            services.AddScoped<ICustomerService, CustomerService>();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using HoustonOnWire.Models;
 using Microsoft.EntityFrameworkCore;
 using HoustonOnWire.Lib;
-using HoustonOnWire.OtherLayers;
+
 using HoustonOnWire.Models.BindingTargets;
 
 namespace HoustonOnWire.Controllers
@@ -15,28 +15,40 @@ namespace HoustonOnWire.Controllers
     public class ChannelValuesController : Controller
     {
         private readonly DataContext context;
-        private readonly IChannelService channelService;
         private readonly IUrlHelper urlHelper;
 
-        public ChannelValuesController(DataContext ctx, IChannelService service,
-            IUrlHelper urlHelper) {
+        public ChannelValuesController(DataContext ctx, IUrlHelper urlHelper) {
             this.context = ctx;
-            this.channelService = service;
             this.urlHelper = urlHelper;
         }
 
         [HttpGet(Name = "GetChannels")]
         public IActionResult GetChannelsPaged(FilterParams filterParams)
         {
-            //System.Console.WriteLine($"In ChannelValueController in Get Action {filterParams.PageNumber}");
-            var model = channelService.GetChannelsPaged(filterParams);
+            IQueryable<Channel> query = context.Channels;
 
+            if (!string.IsNullOrEmpty(filterParams.Term))
+            {
+                query = query.Where(channel => channel.Name.ToLower().Contains(filterParams.Term));
+            }
+
+            if (filterParams.Related)
+            {
+                query = query.Include(channel => channel.ChannelCustomers)
+                    .ThenInclude(channelCustomers => channelCustomers.Customer)
+                    .Select(channel => RemoveChannelCycles(channel));
+
+            }
+
+            var model = new PagedList<Channel>(query, filterParams.PageNumber, filterParams.PageSize, filterParams.Term);
+            
             Response.Headers.Add("X-Pagination", model.GetHeader().ToJson());
 
             var outputModel = new ChannelOutputModel
             {
                 Paging = model.GetHeader(),
-                Links = GetLinks(model),
+                //Links = GetLinks(model),
+                Links = model.GetLinkInfos<Channel>(urlHelper),
                 Items = model.List
             };
             return Ok(outputModel);
@@ -46,7 +58,15 @@ namespace HoustonOnWire.Controllers
         [HttpGet("{id}")]
         public Channel GetChannel(long id)
         {
-            return channelService.GetChannel(id);
+            Channel channel = context.Channels
+                .Include(ch => ch.ChannelCustomers)
+                .ThenInclude(channelCustomer => channelCustomer.Customer)
+                .FirstOrDefault(ch => ch.ChannelId == id);
+
+            if (channel != null)
+                channel = RemoveChannelCycles(channel);
+
+            return channel;
         }
 
         [HttpPost]
@@ -95,31 +115,53 @@ namespace HoustonOnWire.Controllers
         }
 
 
-        private List<LinkInfo> GetLinks(PagedList<Channel> list)
+        //private List<LinkInfo> GetLinks(PagedList<Channel> list)
+        //{
+        //    var links = new List<LinkInfo>();
+
+        //    if (list.HasPreviousPage)
+        //        links.Add(CreateLink("GetChannels", list.PreviousPageNumber, list.PageSize, "previousPage", "GET"));
+
+        //    links.Add(CreateLink("GetChannels", list.PageNumber, list.PageSize, "self", "GET"));
+
+        //    if (list.HasNextPage)
+        //        links.Add(CreateLink("GetChannels", list.NextPageNumber, list.PageSize, "nextPage", "GET"));
+        //    return links;
+        //}
+
+        //private LinkInfo CreateLink(string routeName, int pageNumber, int pageSize,
+        //    string rel, string method)
+        //{
+        //    return new LinkInfo
+        //    {
+        //        Href = urlHelper.Link(routeName, new { PageNumber = pageNumber, PageSize = pageSize }),
+        //        Rel = rel,
+        //        Method = method
+        //    };
+        //}
+
+
+        private Channel RemoveChannelCycles(Channel channel)
         {
-            var links = new List<LinkInfo>();
-
-            if (list.HasPreviousPage)
-                links.Add(CreateLink("GetChannels", list.PreviousPageNumber, list.PageSize, "previousPage", "GET"));
-
-            links.Add(CreateLink("GetChannels", list.PageNumber, list.PageSize, "self", "GET"));
-
-            if (list.HasNextPage)
-                links.Add(CreateLink("GetChannels", list.NextPageNumber, list.PageSize, "nextPage", "GET"));
-            return links;
-        }
-
-        private LinkInfo CreateLink(string routeName, int pageNumber, int pageSize,
-            string rel, string method)
-        {
-            return new LinkInfo
+            if (channel.ChannelCustomers.Count() > 0)
             {
-                Href = urlHelper.Link(routeName, new { PageNumber = pageNumber, PageSize = pageSize }),
-                Rel = rel,
-                Method = method
-            };
+                foreach (var cc in channel.ChannelCustomers)
+                {
+                    cc.Channel = null;
+                    cc.Customer = new Customer
+                    {
+                        CustomerId = cc.Customer.CustomerId,
+                        Name = cc.Customer.Name,
+                        Email = cc.Customer.Email,
+                        Avatar = cc.Customer.Avatar
+                    };
+
+                }
+            }
+            return channel;
+
         }
 
-        
+
     }
 }

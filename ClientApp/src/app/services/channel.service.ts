@@ -1,45 +1,32 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
-import { PagedResponse, Channel, RequestObject, IRequestObject, Customer } from '../models';
-import { LocalStorageService } from './local-storage.service';
+import { PagedResponse, Channel, RequestObject } from '../models';
+
 
 
 
 @Injectable()
 export class ChannelService {
-  private requestObjestInitial: RequestObject;
 
-  private requestObject$ = new BehaviorSubject <RequestObject>(this.getRequestObjectInitial());
-  get currentRequestObject() {
-    return this.requestObject$.getValue();
-  }
-  get requestObject() {
-    return this.requestObject$.asObservable();
-  }
-
-  
-
-  constructor(private api: ApiService, private localStorageService: LocalStorageService) {
-   
-     
-  }
+  constructor(private api: ApiService) {}
 
 
-  changeRequestObject(reqObj: Object) {
-    //console.log("changeRequestObject call!");
-    this.requestObject$.next((<any>Object).assign(this.requestObject$.value, reqObj));
-    this.localStorageService.setItem<RequestObject>(`CHANNEL_REQUEST_OBJECT`, this.currentRequestObject);
-  }
-
-
-
-  getChannelsPaged(channelRequestObj: RequestObject): Observable<PagedResponse<Channel>> {
+  getChannels(channelRequestObj: RequestObject): Observable<PagedResponse<Channel>> {
     return this.api.sendRequest<PagedResponse<Channel>>("GET", '/api/channels'
       + '?Related=' + channelRequestObj.related
       + '&PageNumber=' + channelRequestObj.pageNumber
       + '&PageSize=' + channelRequestObj.pageSize
       + '&Term=' + channelRequestObj.term);
+  }
+
+  getChannelsAll(): Observable<Channel[]> {
+    let channelReqObj = new RequestObject(1, 0, false);
+    return this.getChannels(channelReqObj)
+      .pipe(
+        map((response: PagedResponse<Channel>) => response.items)
+      )
   }
 
   getChannel(id: number): Observable<Channel> {
@@ -70,12 +57,4 @@ export class ChannelService {
     return this.api.sendRequest<number>("DELETE", `/api/channels/${id}`);
   }
 
-  refresh() {
-    this.requestObject$.next((<any>Object).assign(this.requestObject$.value, {}));
-  }
-
-  private getRequestObjectInitial() {
-    return this.localStorageService
-      .getItem<RequestObject>(`CHANNEL_REQUEST_OBJECT`) || new RequestObject;
-  }
 }

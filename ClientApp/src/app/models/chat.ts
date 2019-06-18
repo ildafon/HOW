@@ -12,7 +12,7 @@ export class Chat {
     public score?: number,
 
     public customer?: Customer,
-    public visotor?: Visitor,
+    public visitor?: Visitor,
     public messages?: Message[],
     public lastMessageId?: number
 

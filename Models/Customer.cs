@@ -23,7 +23,7 @@ namespace HoustonOnWire.Models
 
         public ICollection<Chat> Chats { get; set; }
 
-        
+        public DateTime Received { get; set; }
     }
 
 

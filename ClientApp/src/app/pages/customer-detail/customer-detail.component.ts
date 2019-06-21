@@ -49,4 +49,8 @@ export class CustomerDetailComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
+  editCustomer() {
+    this.router.navigate(['/how/customers', this.customer.customerId, 'customer-edit']);
+  }
+
 }

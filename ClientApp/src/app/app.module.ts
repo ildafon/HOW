@@ -25,6 +25,8 @@ import { CustomerService } from './services/customer.service';
 import { CustomerDetailResolver } from './services/resolvers/customer-detail-resolver.service';
 import { CustomersResolver } from './services/resolvers/customers-resolver.service';
 
+import { AvatarService } from './services/avatar.service';
+
 
 
 import { CustomersOfChannelPipe } from './pipes/customers-of-channel.pipe';
@@ -193,6 +195,7 @@ export const Customer = 'CUSTOMER';
     CustomerDetailResolver,
     CustomersResolver,
     PagingService,
+    AvatarService,
     
     { provide: ChannelPrefix, useValue: Channel },
     { provide: CustomerPrefix, useValue: Customer },

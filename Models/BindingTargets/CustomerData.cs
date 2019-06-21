@@ -15,7 +15,7 @@ namespace HoustonOnWire.Models.BindingTargets
         [Required]
         public string Email { get; set; }
 
-        public long Avatar { get; set; }
+        public long AvatarId { get; set; }
 
         public ChannelCustomer[] ChannelCustomers { get; set; }
 
@@ -23,7 +23,7 @@ namespace HoustonOnWire.Models.BindingTargets
         {
             Name = Name,
             Email = Email,
-            Avatar = Avatar == 0 ? null : new Avatar { AvatarId = Avatar},
+            Avatar = AvatarId == 0 ? null : new Avatar {AvatarId = AvatarId },
             ChannelCustomers = ChannelCustomers
         };
 

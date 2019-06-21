@@ -22,7 +22,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let customer of customers" [class.active]="customer.customerId == visitedId">
-        <td><img src="{{customer?.avatar?.url}}" alt="{{customer.Name}}" width="40" height="40"/></td>
+        <td><img src="{{customer?.avatar?.url}}" onerror="this.src='/assets/placeholder.png';" alt="{{customer.Name}}" width="40" height="40"/></td>
         <td>{{customer.name}}</td>
         <td>{{customer.email}}</td>
         <td>

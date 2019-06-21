@@ -1,3 +1,74 @@
-<p>
-  customer-editor works!
-</p>
+<h2>{{title}}</h2>
+<form novalidate #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm)">
+
+  <label>Avatar</label>
+  <div class="form-group row">
+
+    <div class="col-md-3">
+      <img [src]="getCustomerAvatar()" class="card-img-top" alt="...">
+    </div>
+    <div class="col-md-3">
+      <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
+    </div>
+    <input type="number" hidden [(ngModel)]="customer.avatarId"  name="avatarId" />
+  </div>
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" required
+           minlength="5" pattern="^[A-Za-z0-9]+$"
+           class="form-control" [(ngModel)]="customer.name"
+           name="name" id="name" #name="ngModel"
+           [class.danger]="name.invalid" />
+
+    <ul class="text-danger list-unstyled" *ngIf="name.invalid &&  formSubmitted">
+      <li *ngIf="name.errors?.required">
+        You must enter a name
+      </li>
+      <li *ngIf="name.errors?.minlength">
+        Name must be at least 5 characters long.
+      </li>
+      <li *ngIf="name.errors?.pattern">
+        Only characters A-Z, a-z allowed
+      </li>
+    </ul>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" required
+           class="form-control" [(ngModel)]="customer.email"
+           name="email" id="email" #email="ngModel"
+           [class.danger]="email.invalid" />
+
+    <ul class="text-danger list-unstyled" *ngIf="email.invalid &&  formSubmitted">
+      <li *ngIf="email.errors?.required">
+        You must enter a email address
+      </li>
+    </ul>
+  </div>
+
+  <label for="channels">Channels</label>
+  <div class="form-group">
+
+    <div *ngFor="let channel of channelsAvailable; let i = index">
+      <input type="checkbox" [(ngModel)]="channelsSelected[i]" [ngModelOptions]="{standalone: true}" id="i" />
+      <label for="i">{{channel.name}}</label>
+    </div>
+
+  </div>
+
+  <button *ngIf="isNew" type="submit" class="btn btn-success"
+          [disabled]="formSubmitted && customerForm.invalid"
+          [class.btn-secondary]="formSubmitted && customerForm.invalid">
+    Add Customer
+  </button>
+
+  <button *ngIf="!isNew" type="submit" class="btn btn-success">Save</button>
+
+  <button (click)="backToCustomers()" class="btn btn-secondary">Cancel</button>
+</form>
+
+<div>
+  <div *ngFor="let a of avatars">{{a.url}}</div>
+</div>

@@ -105,7 +105,12 @@ namespace HoustonOnWire.Controllers
                     .First(c => c.CustomerId == id);
                 customer.Name = customerData.Customer.Name;
                 customer.Email = customerData.Customer.Email;
-                customer.AvatarId = customerData.Customer.Avatar.AvatarId;
+                if (customerData.Customer.Avatar != null && customerData.Customer.Avatar.AvatarId != 0)
+                {
+                    customer.Avatar = customerData.Customer.Avatar;
+                    context.Attach(customer.Avatar);
+                }
+
                 customer.ChannelCustomers = customerData.ChannelCustomers.Select(cc => new ChannelCustomer
                 {
                     CustomerId = id,

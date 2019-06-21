@@ -2,7 +2,7 @@
 <div class="row">
   <div class="card">
     <div class="w-25 center">
-      <img src="{{customer?.avatar?.url}}" class="card-img-top" alt="...">
+      <img src="{{customer?.avatar?.url}}" onerror="this.src='/assets/placeholder.png';" class="card-img-top" alt="...">
     </div>
 
     <div class="card-body">
@@ -24,4 +24,5 @@
 
 <button class="btn btn-secondary" (click)="back()">&#x2190;</button>
 <button class="btn btn-secondary" (click)="backToCustomers()">Back To Customers</button>
+<button class="btn btn-secondary" (click)="editCustomer()">Edit a Customer</button>
 

@@ -39,6 +39,7 @@
   <ItemGroup>
     <Folder Include="ClientApp\src\app\pages\" />
     <Folder Include="Migrations\" />
+    <Folder Include="Resources\Images\" />
   </ItemGroup>
 
   <ItemGroup>

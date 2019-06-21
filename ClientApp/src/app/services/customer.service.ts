@@ -29,6 +29,30 @@ export class CustomerService {
     return this.api.sendRequest<Customer>("GET", `/api/customers/${id}`);
   }
 
+  createCustomer(customer: Customer): Observable<Customer> {
+    let data: Customer = {
+      name: customer.name,
+      email: customer.email,
+      channelCustomers: customer.channelCustomers,
+      avatarId: customer.avatarId
+
+    }
+
+    return this.api.sendRequest<Customer>("POST", '/api/customers', data);
+  }
+
+  updateCustomer(customer: Customer): Observable<Customer> {
+    let data: Customer = {
+      customerId: customer.customerId,
+      name: customer.name,
+      email: customer.email,
+      channelCustomers: customer.channelCustomers,
+      avatarId: customer.avatarId
+    }
+
+    return this.api.sendRequest<Customer>("PUT", `/api/customers/${customer.customerId}`, data);
+  }
+
 
   deleteCustomer(id: number): Observable<number> {
     return this.api.sendRequest<number>("DELETE", `/api/customers/${id}`);

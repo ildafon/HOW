@@ -59,4 +59,8 @@ export class ChannelDetailComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
+  editChannel() {
+    this.router.navigate(['/how/channels', this.channel.channelId, 'channel-edit']);
+  }
+
 }

@@ -1,17 +1,22 @@
 <div class="container m-2">
-  <div class="row">
-    <ul class="nav nav-tabs">
-      <li *ngFor="let item of menuItems" class="nav-item" [routerLinkActive]='["active"]'>
-        <a [routerLink]='item.url' >
-          {{item.label}}
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div class="row">
-    <router-outlet></router-outlet>
-  </div>
+ 
+    <div>
+      <ul class="nav nav-tabs">
+        <li *ngFor="let item of menuItems" class="nav-item" [routerLinkActive]='["active"]'>
+          <a [routerLink]='item.url'>
+            {{item.label}}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <router-outlet></router-outlet>
+    </div>
 </div>
+  
+  
+
 
 
 

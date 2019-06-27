@@ -1,0 +1,20 @@
+.from-visitor {
+  background-color:darkseagreen;
+  margin-left: auto;
+}
+
+.message-body {
+  
+  margin-bottom: 2rem;
+  width: 70%;
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.message-footer {
+  display: flex;
+  justify-content: flex-end;
+}

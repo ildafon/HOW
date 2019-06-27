@@ -44,10 +44,9 @@ namespace HoustonOnWire.Controllers
             
             Response.Headers.Add("X-Pagination", model.GetHeader().ToJson());
 
-            var outputModel = new ChannelOutputModel
+            var outputModel = new PagedOutputModel<Channel>
             {
                 Paging = model.GetHeader(),
-                //Links = GetLinks(model),
                 Links = model.GetLinkInfos<Channel>(urlHelper),
                 Items = model.List
             };
@@ -114,33 +113,6 @@ namespace HoustonOnWire.Controllers
             context.SaveChanges();
         }
 
-
-        //private List<LinkInfo> GetLinks(PagedList<Channel> list)
-        //{
-        //    var links = new List<LinkInfo>();
-
-        //    if (list.HasPreviousPage)
-        //        links.Add(CreateLink("GetChannels", list.PreviousPageNumber, list.PageSize, "previousPage", "GET"));
-
-        //    links.Add(CreateLink("GetChannels", list.PageNumber, list.PageSize, "self", "GET"));
-
-        //    if (list.HasNextPage)
-        //        links.Add(CreateLink("GetChannels", list.NextPageNumber, list.PageSize, "nextPage", "GET"));
-        //    return links;
-        //}
-
-        //private LinkInfo CreateLink(string routeName, int pageNumber, int pageSize,
-        //    string rel, string method)
-        //{
-        //    return new LinkInfo
-        //    {
-        //        Href = urlHelper.Link(routeName, new { PageNumber = pageNumber, PageSize = pageSize }),
-        //        Rel = rel,
-        //        Method = method
-        //    };
-        //}
-
-
         private Channel RemoveChannelCycles(Channel channel)
         {
             if (channel.ChannelCustomers.Count() > 0)
@@ -155,11 +127,9 @@ namespace HoustonOnWire.Controllers
                         Email = cc.Customer.Email,
                         Avatar = cc.Customer.Avatar
                     };
-
                 }
             }
             return channel;
-
         }
 
 

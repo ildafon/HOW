@@ -220,7 +220,7 @@ namespace HoustonOnWire.Models
                 new Message
                 {
                     MessageId = 1,
-                    Content = "Hello",
+                    Content = "What is Lorem Ipsum?",
                     FromVisitor = true,
                     ChatId = 1
                     
@@ -228,7 +228,7 @@ namespace HoustonOnWire.Models
                 new Message
                 {
                     MessageId = 2,
-                    Content = "Hello",
+                    Content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                     FromVisitor = false,
                     ChatId = 1
                 },
@@ -245,8 +245,70 @@ namespace HoustonOnWire.Models
                     Content = "Hello",
                     FromVisitor = false,
                     ChatId = 2
+                },
+                new Message
+                {
+                    MessageId = 5,
+                    Content = "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                    FromVisitor = true,
+                    ChatId = 1
+
+                },
+                new Message
+                {
+                    MessageId = 6,
+                    Content = "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                    FromVisitor = false,
+                    ChatId = 1
+                },
+                new Message
+                {
+                    MessageId = 7,
+                    Content = "Where does it come from?",
+                    FromVisitor = true,
+                    ChatId = 1
+
+                },
+                new Message
+                {
+                    MessageId = 8,
+                    Content = "software like Aldus PageMaker including versions of Lorem Ipsum.",
+                    FromVisitor = false,
+                    ChatId = 1
+                },
+                new Message
+                {
+                    MessageId = 9,
+                    Content = "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                    FromVisitor = true,
+                    ChatId = 1
+
+                },
+                new Message
+                {
+                    MessageId = 10,
+                    Content = "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                    FromVisitor = false,
+                    ChatId = 1
+                },
+                new Message
+                {
+                    MessageId = 11,
+                    Content = "Where does it come from?",
+                    FromVisitor = true,
+                    ChatId = 1
+
+                },
+                new Message
+                {
+                    MessageId = 12,
+                    Content = "software like Aldus PageMaker including versions of Lorem Ipsum.",
+                    FromVisitor = false,
+                    ChatId = 1
                 }
-                
+
+
+
             );
 
 

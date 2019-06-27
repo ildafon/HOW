@@ -1,0 +1,48 @@
+<br />
+
+<div class="row mt-2">
+  <input type="text" placeholder="Enter filter"
+         (input)="onFilter($event)"
+         (focus)="onFilterFocus()"
+         class="m-2" />
+</div>
+
+<div *ngIf="chats.length == 0">No Data yet...</div>
+
+<div *ngIf="chats.length > 0">
+  <table class="table table-sm">
+    <thead>
+      <tr>
+         <th></th>
+        <th>Score</th>
+        <th>Visitor Name</th>
+        <th>Last Message</th>
+        <th>Received</th>
+        <th></th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let chat of chats" [class.active]="chat.chatId==visitedId">
+        <td><app-avatar-username [user]="chat.visitor"></app-avatar-username></td>
+        <td>{{chat.score}}</td>
+        <td>{{chat.visitor?.name}}</td>
+        <td>{{chat.lastMessage?.content}}</td>
+        <td>{{chat.lastMessage?.received |  date:'medium'}}</td>
+        <td>
+          <span><button class="btn btn-primary" (click)="showDetails(chat.chatId)">Detail</button></span>
+          <span><button class="btn btn-danger" (click)="onArchive(chat.chatId)">Archive</button></span>
+        </td>
+        
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <app-paginator [totalPages]="paging.totalPages"
+                 [pageNumber]="page"
+                 [pageSize]="paging.pageSize"
+                 (page)="onPage($event)"></app-paginator>
+</div>

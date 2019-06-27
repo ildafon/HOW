@@ -4,14 +4,16 @@ using HoustonOnWire.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HoustonOnWire.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190624133311_ChatLastMessage")]
+    partial class ChatLastMessage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -178,18 +180,10 @@ namespace HoustonOnWire.Migrations
                     b.ToTable("Messages");
 
                     b.HasData(
-                        new { MessageId = 1L, ChatId = 1L, Content = "What is Lorem Ipsum?", FromVisitor = true, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { MessageId = 2L, ChatId = 1L, Content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", FromVisitor = false, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                        new { MessageId = 1L, ChatId = 1L, Content = "Hello", FromVisitor = true, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                        new { MessageId = 2L, ChatId = 1L, Content = "Hello", FromVisitor = false, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                         new { MessageId = 3L, ChatId = 2L, Content = "Hello", FromVisitor = true, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { MessageId = 4L, ChatId = 2L, Content = "Hello", FromVisitor = false, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { MessageId = 5L, ChatId = 1L, Content = "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", FromVisitor = true, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { MessageId = 6L, ChatId = 1L, Content = "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", FromVisitor = false, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { MessageId = 7L, ChatId = 1L, Content = "Where does it come from?", FromVisitor = true, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { MessageId = 8L, ChatId = 1L, Content = "software like Aldus PageMaker including versions of Lorem Ipsum.", FromVisitor = false, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { MessageId = 9L, ChatId = 1L, Content = "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", FromVisitor = true, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { MessageId = 10L, ChatId = 1L, Content = "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", FromVisitor = false, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { MessageId = 11L, ChatId = 1L, Content = "Where does it come from?", FromVisitor = true, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { MessageId = 12L, ChatId = 1L, Content = "software like Aldus PageMaker including versions of Lorem Ipsum.", FromVisitor = false, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                        new { MessageId = 4L, ChatId = 2L, Content = "Hello", FromVisitor = false, Received = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                     );
                 });
 

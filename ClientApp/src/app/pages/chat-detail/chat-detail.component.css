@@ -1,0 +1,45 @@
+.chat_box {
+  
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+
+}
+
+
+.chat-details {
+  padding: 1em;
+ display: flex;
+ flex-direction: row;
+ flex-basis: 40%;
+}
+
+.avatar {
+  flex-basis: 20%;
+}
+
+.chat-info {
+  padding: 1rem;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  
+  flex-basis: 60%;
+  padding: 1rem;
+ 
+}
+
+.fromVisitor{
+  align-self: stretch;
+  background-color: grey;
+  margin-left: auto;
+  
+}
+
+.message-body {
+  border: 1px solid grey;
+  width: 45%;
+  margin-bottom: 2rem;
+}

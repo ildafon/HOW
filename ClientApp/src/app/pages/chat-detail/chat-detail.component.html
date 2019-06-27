@@ -1,0 +1,28 @@
+<div class="chat_box">
+  <div class="chat-details card">
+      <app-avatar-username class="avatar" [user]="chat.visitor"></app-avatar-username>
+      <div class="chat-info">
+        <div class="card-text">Name: {{chat.visitor.name}}</div>
+        <div class="card-text">Email: {{chat.visitor.email}}</div>
+        <div class="card-text">Phone: {{chat.visitor.phone}}</div>
+        <div class="card-text">Comment: {{chat.visitor.comment}}</div>
+
+        <div class="card-text">Score: {{chat.score}}</div>
+      </div>
+      
+    
+  </div>
+  <div class="messages card">
+    <div class="messages" *ngIf="chat">
+      <app-message *ngFor="let message of chat.messages"
+        [user]="message.fromVisitor ? chat.visitor: chat.customer"
+        [message]="message">
+        
+      </app-message>
+    </div>
+  </div>
+</div>
+
+
+<button class="btn btn-secondary" (click)="back()">&#x2190;</button>
+<button class="btn btn-secondary" (click)="backToChats()">Back To Chats</button>

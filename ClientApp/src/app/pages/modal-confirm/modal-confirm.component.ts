@@ -7,7 +7,10 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./modal-confirm.component.css']
 })
 export class ModalConfirmComponent  {
-  @Input() name;
+  @Input() question: string;
+  @Input() dismissName: string;
+  @Input() confirmName: string;
+
 
   constructor(public activeModal: NgbActiveModal) { }
 

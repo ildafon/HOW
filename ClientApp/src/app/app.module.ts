@@ -28,6 +28,13 @@ import { CustomersResolver } from './services/resolvers/customers-resolver.servi
 import { AvatarService } from './services/avatar.service';
 
 
+import { ChatService } from './services/chat.service';
+import { ChatDetailResolver } from './services/resolvers/chat-detail-resolver.service';
+import { ChatsResolver } from './services/resolvers/chats-resolver.service';
+import { ChatsComponent } from './pages/chats/chats.component';
+import { ChatDetailComponent } from './pages/chat-detail/chat-detail.component';
+import { ChatEditorComponent } from './pages/chat-editor/chat-editor.component';
+
 
 import { CustomersOfChannelPipe } from './pipes/customers-of-channel.pipe';
 
@@ -45,7 +52,7 @@ import { CustomerEditorComponent } from './pages/customer-editor/customer-editor
 import { PagingService } from './services/paging.service';
 import { PagingServiceFactory } from './services/paging-service-factory';
 
-import { CHANNEL_PAGING, CUSTOMER_PAGING } from './app.config';
+import { CHANNEL_PAGING, CUSTOMER_PAGING, CHAT_PAGING } from './app.config';
 
 
 
@@ -53,11 +60,16 @@ import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalConfirmComponent } from './pages/modal-confirm/modal-confirm.component';
 import { ModalListComponent } from './pages/modal-list/modal-list.component';
 
+
+
 export const ChannelPrefix = new InjectionToken<string>('ChannelPrefix');
 export const Channel = 'CHANNEL';
 
 export const CustomerPrefix = new InjectionToken<string>('CustomerPrefix');
 export const Customer = 'CUSTOMER';
+
+export const ChatPrefix = new InjectionToken<string>('ChatPrefix');
+export const Chat = 'CHAT';
 
 @NgModule({
   declarations: [
@@ -80,6 +92,9 @@ export const Customer = 'CUSTOMER';
     CustomerEditorComponent,
     ModalConfirmComponent,
     ModalListComponent,
+    ChatsComponent,
+    ChatDetailComponent,
+    ChatEditorComponent,
    
   ],
   imports: [
@@ -168,6 +183,42 @@ export const Customer = 'CUSTOMER';
                 data: { title: 'Edit Customer' }
               },
             ]
+          },
+
+          {
+            path: 'chats',
+            children: [
+              {
+                path: '',
+                component: ChatsComponent,
+                data: { title: 'List of Chats' },
+              },
+              {
+                path: ':id/chat-details',
+                component: ChatDetailComponent,
+                resolve: {
+                  chat: ChatDetailResolver,
+                },
+                data: { title: 'Chat Details' }
+              },
+              {
+                path: 'chat-add',
+                component: ChatEditorComponent,
+                resolve: {
+                  channels: ChatsResolver
+                },
+                data: { title: 'Add Chat' }
+
+              }, {
+                path: ':id/chat-edit',
+                component: ChatEditorComponent,
+                resolve: {
+                  customer: ChatDetailResolver,
+                  channels: ChatsResolver
+                },
+                data: { title: 'Edit Chat' }
+              },
+            ]
           }, 
           
           {
@@ -196,9 +247,13 @@ export const Customer = 'CUSTOMER';
     CustomersResolver,
     PagingService,
     AvatarService,
+    ChatService,
+    ChatDetailResolver,
+    ChatsResolver,
     
     { provide: ChannelPrefix, useValue: Channel },
     { provide: CustomerPrefix, useValue: Customer },
+    { provide: ChatPrefix, useValue: Chat },
     {
       provide: CHANNEL_PAGING,
       useFactory: (localStorage, prefix) => { return new PagingService(localStorage, prefix) },
@@ -208,6 +263,11 @@ export const Customer = 'CUSTOMER';
       provide: CUSTOMER_PAGING,
       useFactory: (localStorage, prefix) => { return new PagingService(localStorage, prefix) },
       deps: [LocalStorageService, CustomerPrefix]
+    },
+    {
+      provide: CHAT_PAGING,
+      useFactory: (localStorage, prefix) => { return new PagingService(localStorage, prefix) },
+      deps: [LocalStorageService, ChatPrefix]
     }
   ],
   bootstrap: [AppComponent],

@@ -112,7 +112,10 @@ export class ChannelsComponent implements OnInit {
 
   onDeleteChannel(id) {
     let modal = this.modalService.open(ModalConfirmComponent);
-    modal.componentInstance.name = 'Channel';
+   
+    modal.componentInstance.question = 'Delete Channel?';
+    modal.componentInstance.dismissName = 'Cancel';
+    modal.componentInstance.confirmName = 'Delete';
     modal.result.then((result) => {
       this.onDeleteConfirmation(id);
     }, () => { });

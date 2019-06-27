@@ -18,10 +18,4 @@ namespace HoustonOnWire.Models
     }
 
 
-    public class ChannelOutputModel
-    {
-        public PagingHeader Paging { get; set; }
-        public List<LinkInfo> Links { get; set; }
-        public List<Channel> Items { get; set; }
-    }
 }

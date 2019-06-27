@@ -26,6 +26,7 @@ namespace HoustonOnWire.Models
         public List<Message> Messages { get; set; }
 
         public long? LastMessageId { get; set; }
+        public Message LastMessage { get; set; }
 
         public DateTime Received { get; set; }
     }

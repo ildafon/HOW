@@ -7,11 +7,10 @@
     <div class="col-md-3">
       <img [src]="getCustomerAvatar()" class="card-img-top" alt="...">
     </div>
-    <div class="col-md-3">
-      <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
-    </div>
-    <input type="number" hidden [(ngModel)]="customer.avatarId"  name="avatarId" />
-  </div>
+   </div>
+   <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
+   <input type="number" hidden [(ngModel)]="customer.avatarId"  name="avatarId" />
+  
 
   <div class="form-group">
     <label for="name">Name</label>

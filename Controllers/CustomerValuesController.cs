@@ -8,7 +8,6 @@ using HoustonOnWire.Models;
 using HoustonOnWire.Lib;
 using HoustonOnWire.Models.BindingTargets;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace HoustonOnWire.Controllers
 {
@@ -49,9 +48,8 @@ namespace HoustonOnWire.Controllers
 
             Response.Headers.Add("X-Pagination", model.GetHeader().ToJson());
 
-            var outputModel = new CustomerOutputModel {
+            var outputModel = new PagedOutputModel<Customer> {
                 Paging = model.GetHeader(),
-                //Links = GetLinks(model),
                 Links = model.GetLinkInfos<Customer>(urlHelper),
                 Items = model.List
             };
@@ -136,30 +134,7 @@ namespace HoustonOnWire.Controllers
             }
         }
 
-        //private List<LinkInfo> GetLinks(PagedList<Customer> list)
-        //{
-        //    var links = new List<LinkInfo>();
-
-        //    if (list.HasPreviousPage)
-        //        links.Add(CreateLink("GetCustomers", list.PreviousPageNumber, list.PageSize, "previousPage", "GET"));
-
-        //    links.Add(CreateLink("GetCustomers", list.PageNumber, list.PageSize, "self", "GET"));
-
-        //    if (list.HasNextPage)
-        //        links.Add(CreateLink("GetCustomers", list.NextPageNumber, list.PageSize, "nextPage", "GET"));
-        //    return links;
-        //}
-
-        //private LinkInfo CreateLink(string routeName, int pageNumber, int pageSize,
-        //    string rel, string method)
-        //{
-        //    return new LinkInfo
-        //    {
-        //        Href = urlHelper.Link(routeName, new { PageNumber = pageNumber, PageSize = pageSize }),
-        //        Rel = rel,
-        //        Method = method
-        //    };
-        //}
+       
 
         private Customer RemoveCustomerCycles(Customer cus)
         {

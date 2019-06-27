@@ -1,0 +1,15 @@
+<div class="message-body card" [class.from-visitor]="_message.fromVisitor">
+  <div class="message-header card-header">
+    <div>{{_user.name}}</div>
+    <div>{{_user.phone}}</div>
+  </div>
+  <div class="card-body">
+    {{_message.content}}
+  </div>
+  <div class="message-footer">
+    <div class="badge badge-pill badge-light">
+      {{_message.received | date:'medium'}}
+    </div>
+  </div>
+</div>
+

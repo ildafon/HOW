@@ -128,7 +128,9 @@ export class CustomersComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onDelete(id: number) {
     let modal = this.modalService.open(ModalConfirmComponent);
-    modal.componentInstance.name = 'Customer';
+    modal.componentInstance.question = 'Delete Customer?';
+    modal.componentInstance.dismissName = 'Cancel';
+    modal.componentInstance.confirmName = 'Delete';
     modal.result.then((result) => {
       this.deleteCustomer(id);
     }, () => { });

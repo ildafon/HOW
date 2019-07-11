@@ -105,7 +105,9 @@ export const Chat = 'CHAT';
     NgbModule.forRoot(),
     ComponentsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      //{ path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', redirectTo: '/how/channels', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent }
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'test-api', component: TestApiComponent },

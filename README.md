@@ -10,5 +10,5 @@
  
  dotnet ef database update
  
- dotnet run
+ run solution
  

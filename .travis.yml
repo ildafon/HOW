@@ -5,5 +5,5 @@ mono: none
 dotnet: 2.1.2
 before_script:
   - dotnet restore
-script:  
-  
+script:
+  - dotnet build HoustonOnWire.sln -c Release

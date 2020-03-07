@@ -1,6 +1,5 @@
 ﻿﻿# HOW
- 
- 
+
  dotnet restore
  
  cd ClientApp

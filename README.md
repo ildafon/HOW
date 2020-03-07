@@ -1,4 +1,5 @@
-﻿﻿# HOW
+﻿[![Build Status](https://travis-ci.org/ildafon/HOW?branch=master)]﻿(https://travis-ci.org/ildafon/HOW)
+# HOW
 
  dotnet restore
  

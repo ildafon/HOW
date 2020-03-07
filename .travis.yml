@@ -7,3 +7,6 @@ before_script:
   - dotnet restore
 script:
   - dotnet build HoustonOnWire.sln -c Release
+
+notifications:
+  slack: grizli:bpa6vHF2LZbZnhqTt9OIT3Jg
